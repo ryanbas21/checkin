@@ -12,11 +12,16 @@
     "start": "next start -p 8000",
     "test": "clear; npm run -s lint ; tape -r babel-register src/**/*.spec.js | faucet ;",
     "watch": "watch 'npm run -s test && npm run -s lint' ./src"
-  }
+  },
   "dependencies": {
+    "firebase": "^4.1.1",
     "next": "^3.0.0-beta10",
+    "next-redux-wrapper": "^1.1.2",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.15.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
