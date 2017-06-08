@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import AddTeamIcon from 'react-icons/lib/md/group-add';
 import JoinTeamIcon from 'react-icons/lib/ti/group-outline';
-import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
@@ -24,17 +23,21 @@ const style = {
 };
 const dividerStyle = { marginTop: 20, marginBottom: 20 };
 
-const CreateOrJoin = () =>
+const CreateOrJoin = props =>
   <MobileTearSheet>
     <div className={style.inline}>
       <Link href="/create">
-        <a style={style.a}><AddTeamIcon style={style.icon} />Add Team</a>
+        <a style={style.a} onClick={props.actions.createTeam}>
+          <AddTeamIcon style={style.icon} />Add Team
+        </a>
       </Link>
     </div>
     <Divider style={dividerStyle} />
     <div className={style.inline}>
       <Link href="/join">
-        <a style={style.a}><JoinTeamIcon style={style.icon} />Join Existing Team</a>
+        <a style={style.a} onClick={props.actions.selectTeam}>
+          <JoinTeamIcon style={style.icon} />Join Existing Team
+        </a>
       </Link>
     </div>
   </MobileTearSheet>;

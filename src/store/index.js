@@ -4,8 +4,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import rootSaga from '../sagas/root';
 import configureFirebase from '../lib/firebase';
+import { createTeamReducer } from '../components/CreateTeam';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({ createTeamReducer });
 
 const sagas = createSagaMiddleware();
 

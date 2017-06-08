@@ -23,7 +23,9 @@ const style = {
 };
 export default props =>
   <MuiThemeProvider muiTheme={muiTheme}>
-    <Paper style={style} zDepth={3}>
-      <FlatButton target="_blank" label="Sign In" icon={<LogoGithub />} />
-    </Paper>
+    <div>
+      <Paper style={style} zDepth={3}>
+        <FlatButton target="_blank" label="Sign In" icon={<LogoGithub />} />
+      </Paper>
+    </div>
   </MuiThemeProvider>;

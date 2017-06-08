@@ -7,10 +7,6 @@ class MobileTearSheet extends Component {
     height: PropTypes.number.isRequired
   };
 
-  static defaultProps = {
-    height: 500
-  };
-
   static contextTypes = {
     muiTheme: PropTypes.object.isRequired
   };
