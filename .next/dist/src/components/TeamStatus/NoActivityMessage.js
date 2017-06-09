@@ -28,15 +28,14 @@ var NoActivityMessage = function NoActivityMessage(props) {
 
 var number = _propTypes2.default.number,
     string = _propTypes2.default.string;
+// NoActivityMessage.propTypes = {
+//   style: PropTypes.shape({
+//     width: number.isRequired,
+//     display: string.isRequired,
+//     flexDirection: string.isRequired,
+//     justifyContent: string.isRequired,
+//     alignItems: string.isRequired
+//   }).isRequired
+// };
 
-NoActivityMessage.propTypes = {
-  style: _propTypes2.default.shape({
-    marginTop: number.isRequired,
-    width: number.isRequired,
-    display: string.isRequired,
-    flexDirection: string.isRequired,
-    justifyContent: string.isRequired,
-    alignItems: string.isRequired
-  }).isRequired
-};
 exports.default = NoActivityMessage;

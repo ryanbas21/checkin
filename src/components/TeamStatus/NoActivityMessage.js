@@ -9,14 +9,13 @@ const NoActivityMessage = props =>
   </Card>;
 
 const { number, string } = PropTypes;
-NoActivityMessage.propTypes = {
-  style: PropTypes.shape({
-    marginTop: number.isRequired,
-    width: number.isRequired,
-    display: string.isRequired,
-    flexDirection: string.isRequired,
-    justifyContent: string.isRequired,
-    alignItems: string.isRequired
-  }).isRequired
-};
+// NoActivityMessage.propTypes = {
+//   style: PropTypes.shape({
+//     width: number.isRequired,
+//     display: string.isRequired,
+//     flexDirection: string.isRequired,
+//     justifyContent: string.isRequired,
+//     alignItems: string.isRequired
+//   }).isRequired
+// };
 export default NoActivityMessage;

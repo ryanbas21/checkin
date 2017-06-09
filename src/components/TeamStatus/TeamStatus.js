@@ -10,11 +10,17 @@ import CheckedInDisplay from './CheckedInDisplay';
 import NoActivityMessage from './NoActivityMessage';
 
 const style = {
-  paper: {
-    marginTop: 120,
-    width: 600,
+  outer: {
+    width: '100%',
+    height: 'auto',
+    margin: '0 auto',
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  paper: {
+    width: '50%',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -27,12 +33,14 @@ const style = {
 };
 
 const TeamStatus = props =>
-  props.status.length
-    ? <Paper style={style.paper}>
-      <List style={style.list}>
-        <Subheader>Activity</Subheader>
-        {props.status.map(checkin => <CheckedInDisplay key={checkin.id} checkin={checkin} />)}
-      </List>
-    </Paper>
-    : <NoActivityMessage style={style.paper} />;
+  <div style={style.outer}>
+    {props.status.length
+      ? <Paper style={style.paper}>
+        <List style={style.list}>
+          <Subheader>Activity</Subheader>
+          {props.status.map(checkin => <CheckedInDisplay key={checkin.id} checkin={checkin} />)}
+        </List>
+      </Paper>
+      : <NoActivityMessage style={style.paper} />}
+  </div>;
 export default TeamStatus;

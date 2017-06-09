@@ -66,7 +66,7 @@ var muiTheme = (0, _getMuiTheme2.default)({
   userAgent: false
 });
 var Board = function Board() {
-  return _react2.default.createElement(_MuiThemeProvider2.default, { muiTheme: muiTheme }, _react2.default.createElement('div', { style: { width: '100%' } }, _react2.default.createElement(_navbar2.default, { team: "Ryan's Team" }), _react2.default.createElement(_container2.default, null), _react2.default.createElement(_container4.default, null), _react2.default.createElement(_TeamMembers2.default, null)));
+  return _react2.default.createElement(_MuiThemeProvider2.default, { muiTheme: muiTheme }, _react2.default.createElement('div', { style: { width: '100%' } }, _react2.default.createElement(_TeamMembers2.default, null), _react2.default.createElement(_navbar2.default, { team: "Ryan's Team" }), _react2.default.createElement(_container4.default, null), _react2.default.createElement(_container2.default, null)));
 };
 
 // // create higher-order page component, using compose()

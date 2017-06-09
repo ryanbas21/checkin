@@ -65,30 +65,18 @@ function _interopRequireDefault(obj) {
 }
 
 var styles = {
-  sideNav: {
-    marginTop: 600
-  },
   toggle: {
-    block: {
-      maxWidth: 250
-    },
-    toggle: {
-      marginBottom: 16
-    },
+    top: 0,
+    right: 0,
+    zIndex: 10000,
     thumbOff: {
       backgroundColor: '#ffcccc'
     },
     trackOff: {
       backgroundColor: '#ff9d9d'
     },
-    thumbSwitched: {
-      backgroundColor: 'red'
-    },
     trackSwitched: {
       backgroundColor: '#ff9d9d'
-    },
-    labelStyle: {
-      color: 'red'
     }
   }
 };
@@ -113,17 +101,7 @@ var TeamMembers = function (_Component) {
   (0, _createClass3.default)(TeamMembers, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { style: { float: 'right' } }, _react2.default.createElement(_Toggle2.default, {
-        defaultToggled: !!this.state.open,
-        onToggle: this.handleToggle,
-        icon: _toggleOn2.default,
-        style: { position: 'relative', marginTop: '0%', left: '10%' }
-      }), _react2.default.createElement(_Drawer2.default, { openSecondary: true, style: styles.sideNav, open: this.state.open, docked: true }, _react2.default.createElement('br', null), _react2.default.createElement(_MenuItem2.default, { style: { textAlign: 'center' } }, 'Members'), _react2.default.createElement(_Toggle2.default, {
-        style: styles.toggle,
-        onToggle: this.handleToggle,
-        icon: _toggleOn2.default,
-        defaultToggled: true
-      }), Names.map(function (name) {
+      return _react2.default.createElement('div', { style: { float: 'right' } }, _react2.default.createElement(_Toggle2.default, { style: styles.toggle, onToggle: this.handleToggle, icon: _toggleOn2.default, x: true }), _react2.default.createElement(_Drawer2.default, { openSecondary: true, containerStyle: { marginTop: 65 }, open: this.state.open, docked: true }, _react2.default.createElement(_MenuItem2.default, { style: { textAlign: 'center' } }, 'Members'), Names.map(function (name) {
         return _react2.default.createElement(_MenuItem2.default, { key: name, style: { paddingLeft: 10 } }, _react2.default.createElement(_Avatar2.default, { icon: _react2.default.createElement(_user2.default, null), style: { margin: 5 } }), name);
       })));
     }

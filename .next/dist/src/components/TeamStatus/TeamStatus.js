@@ -47,11 +47,17 @@ function _interopRequireDefault(obj) {
 }
 
 var style = {
-  paper: {
-    marginTop: 120,
-    width: 600,
+  outer: {
+    width: '100%',
+    height: 'auto',
+    margin: '0 auto',
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  paper: {
+    width: '50%',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -64,8 +70,8 @@ var style = {
 };
 
 var TeamStatus = function TeamStatus(props) {
-  return props.status.length ? _react2.default.createElement(_Paper2.default, { style: style.paper }, _react2.default.createElement(_List.List, { style: style.list }, _react2.default.createElement(_Subheader2.default, null, 'Activity'), props.status.map(function (checkin) {
+  return _react2.default.createElement('div', { style: style.outer }, props.status.length ? _react2.default.createElement(_Paper2.default, { style: style.paper }, _react2.default.createElement(_List.List, { style: style.list }, _react2.default.createElement(_Subheader2.default, null, 'Activity'), props.status.map(function (checkin) {
     return _react2.default.createElement(_CheckedInDisplay2.default, { key: checkin.id, checkin: checkin });
-  }))) : _react2.default.createElement(_NoActivityMessage2.default, { style: style.paper });
+  }))) : _react2.default.createElement(_NoActivityMessage2.default, { style: style.paper }));
 };
 exports.default = TeamStatus;

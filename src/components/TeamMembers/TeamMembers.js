@@ -9,30 +9,18 @@ import ToggleOff from 'react-icons/lib/fa/toggle-off';
 import ToggleOn from 'react-icons/lib/fa/toggle-on';
 
 const styles = {
-  sideNav: {
-    marginTop: 600
-  },
   toggle: {
-    block: {
-      maxWidth: 250
-    },
-    toggle: {
-      marginBottom: 16
-    },
+    top: 0,
+    right: 0,
+    zIndex: 10000,
     thumbOff: {
       backgroundColor: '#ffcccc'
     },
     trackOff: {
       backgroundColor: '#ff9d9d'
     },
-    thumbSwitched: {
-      backgroundColor: 'red'
-    },
     trackSwitched: {
       backgroundColor: '#ff9d9d'
-    },
-    labelStyle: {
-      color: 'red'
     }
   }
 };
@@ -49,21 +37,9 @@ export default class TeamMembers extends Component {
   render() {
     return (
       <div style={{ float: 'right' }}>
-        <Toggle
-          defaultToggled={!!this.state.open}
-          onToggle={this.handleToggle}
-          icon={ToggleOn}
-          style={{ position: 'relative', marginTop: '0%', left: '10%' }}
-        />
-        <Drawer openSecondary style={styles.sideNav} open={this.state.open} docked>
-          <br />
+        <Toggle style={styles.toggle} onToggle={this.handleToggle} icon={ToggleOn} x />
+        <Drawer openSecondary containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
           <MenuItem style={{ textAlign: 'center' }}>Members</MenuItem>
-          <Toggle
-            style={styles.toggle}
-            onToggle={this.handleToggle}
-            icon={ToggleOn}
-            defaultToggled
-          />
           {Names.map(name =>
             <MenuItem key={name} style={{ paddingLeft: 10 }}>
               <Avatar icon={<UserIcon />} style={{ margin: 5 }} />{name}
