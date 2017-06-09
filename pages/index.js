@@ -21,7 +21,7 @@ const muiTheme = getMuiTheme({
 });
 const Board = () =>
   <MuiThemeProvider muiTheme={muiTheme}>
-    <div style={{ width: '100%' }}>
+    <div>
       <TeamMembers />
       <Navbar team={"Ryan's Team"} />
       <TeamStatus />

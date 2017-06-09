@@ -12,8 +12,6 @@ import NoActivityMessage from './NoActivityMessage';
 const style = {
   outer: {
     width: '100%',
-    height: 'auto',
-    margin: '0 auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'

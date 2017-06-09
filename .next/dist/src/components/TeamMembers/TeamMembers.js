@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -66,7 +70,7 @@ function _interopRequireDefault(obj) {
 
 var styles = {
   toggle: {
-    top: 0,
+    marginTop: 80,
     right: 0,
     zIndex: 10000,
     thumbOff: {
@@ -101,7 +105,9 @@ var TeamMembers = function (_Component) {
   (0, _createClass3.default)(TeamMembers, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { style: { float: 'right' } }, _react2.default.createElement(_Toggle2.default, { style: styles.toggle, onToggle: this.handleToggle, icon: _toggleOn2.default, x: true }), _react2.default.createElement(_Drawer2.default, { openSecondary: true, containerStyle: { marginTop: 65 }, open: this.state.open, docked: true }, _react2.default.createElement(_MenuItem2.default, { style: { textAlign: 'center' } }, 'Members'), Names.map(function (name) {
+      var _React$createElement;
+
+      return _react2.default.createElement('div', null, _react2.default.createElement(_Toggle2.default, { style: styles.toggle, onToggle: this.handleToggle, icon: _toggleOn2.default, x: true }), _react2.default.createElement(_Drawer2.default, (_React$createElement = { open: true, containerStyle: { marginTop: 65 } }, (0, _defineProperty3.default)(_React$createElement, 'open', this.state.open), (0, _defineProperty3.default)(_React$createElement, 'docked', true), _React$createElement), _react2.default.createElement(_MenuItem2.default, { style: { textAlign: 'center' } }, 'Members'), Names.map(function (name) {
         return _react2.default.createElement(_MenuItem2.default, { key: name, style: { paddingLeft: 10 } }, _react2.default.createElement(_Avatar2.default, { icon: _react2.default.createElement(_user2.default, null), style: { margin: 5 } }), name);
       })));
     }

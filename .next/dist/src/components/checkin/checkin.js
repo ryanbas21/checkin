@@ -76,8 +76,8 @@ var style = {
   marginRight: 20,
   checkIn: {
     position: 'absolute',
-    bottom: 150,
-    right: 250
+    bottom: 30,
+    right: 0
   }
 };
 

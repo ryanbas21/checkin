@@ -49,8 +49,6 @@ function _interopRequireDefault(obj) {
 var style = {
   outer: {
     width: '100%',
-    height: 'auto',
-    margin: '0 auto',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'

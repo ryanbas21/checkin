@@ -23,19 +23,18 @@ function _interopRequireDefault(obj) {
 }
 
 var NoActivityMessage = function NoActivityMessage(props) {
-  return _react2.default.createElement(_Card.Card, { style: props.style }, _react2.default.createElement(_Card.CardHeader, { title: 'No Recent Activity', subtitle: 'Checkin your activity!' }));
+  return _react2.default.createElement(_Card.Card, { style: props.style }, _react2.default.createElement(_Card.CardHeader, { title: 'No Recent Activity', subtitle: 'Check In your activity!' }));
 };
 
 var number = _propTypes2.default.number,
     string = _propTypes2.default.string;
-// NoActivityMessage.propTypes = {
-//   style: PropTypes.shape({
-//     width: number.isRequired,
-//     display: string.isRequired,
-//     flexDirection: string.isRequired,
-//     justifyContent: string.isRequired,
-//     alignItems: string.isRequired
-//   }).isRequired
-// };
 
+NoActivityMessage.propTypes = {
+  style: _propTypes2.default.shape({
+    width: string.isRequired,
+    display: string.isRequired,
+    justifyContent: string.isRequired,
+    alignItems: string.isRequired
+  }).isRequired
+};
 exports.default = NoActivityMessage;

@@ -10,7 +10,7 @@ import ToggleOn from 'react-icons/lib/fa/toggle-on';
 
 const styles = {
   toggle: {
-    top: 0,
+    marginTop: 80,
     right: 0,
     zIndex: 10000,
     thumbOff: {
@@ -36,9 +36,9 @@ export default class TeamMembers extends Component {
 
   render() {
     return (
-      <div style={{ float: 'right' }}>
+      <div>
         <Toggle style={styles.toggle} onToggle={this.handleToggle} icon={ToggleOn} x />
-        <Drawer openSecondary containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
+        <Drawer open containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
           <MenuItem style={{ textAlign: 'center' }}>Members</MenuItem>
           {Names.map(name =>
             <MenuItem key={name} style={{ paddingLeft: 10 }}>
