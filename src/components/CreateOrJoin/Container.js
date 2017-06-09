@@ -8,9 +8,6 @@ const mapStateToProps = state => ({
   teams: actions.createOrJoinSelector(state)
 });
 const mapDispatchToProps = dispatch => ({
-  actions: {
-    createTeam: () => dispatch(actions.createTeam()),
-    selectTeam: () => dispatch(actions.selectTeam())
-  }
+  actions: bindActionCreators(actions, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CreateOrJoin);

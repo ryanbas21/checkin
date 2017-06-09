@@ -1,3 +1,4 @@
+import cuid from 'cuid';
 import test from 'tape';
 import reducer, * as actions from './createTeam.reducer.js';
 
@@ -10,25 +11,76 @@ test('Should test the selectTeam selector', t => {
   t.same(actual, expected, 'Should slice off the correct piece of state');
   t.end();
 });
-test('should test create team reducer and actions', nest => {
-  nest.test('Should test the createTeam action', t => {
-    const expected = {
-      type: 'CREATE_TEAM',
-      payload: 'Team Cool'
-    };
-    const actual = actions.createTeam('Team Cool');
+test('Test the getTeamStatus Selector', t => {
+  const checkInID = cuid();
+  const userID = cuid();
+  const state = {
+    [checkInID]: {
+      date: '1/1/2017',
+      recentWork: 'Worked on scrum app',
+      questions: 'When will the backend be ready',
+      today: 'Wrote tests for create team reducer',
+      id: checkInID,
+      userID
+    },
+    [userID]: {
+      date: '1/1/2017',
+      recentWork: 'Worked on scrum app',
+      questions: 'When will the backend be ready',
+      today: 'Wrote tests for create team reducer',
+      id: checkInID,
+      userID
+    }
+  };
+  const expected = [
+    {
+      date: '1/1/2017',
+      recentWork: 'Worked on scrum app',
+      questions: 'When will the backend be ready',
+      today: 'Wrote tests for create team reducer',
+      id: checkInID,
+      userID
+    },
+    {
+      date: '1/1/2017',
+      recentWork: 'Worked on scrum app',
+      questions: 'When will the backend be ready',
+      today: 'Wrote tests for create team reducer',
+      id: checkInID,
+      userID
+    }
+  ];
+  const actual = actions.getTeamStatus(state);
 
-    t.same(actual, expected, 'should create an action with type and payload');
-    t.end();
-  });
-  nest.test('Should test the selectTeam action', t => {
-    const expected = {
-      type: 'SELECT_TEAM',
-      payload: 'Team Cool'
-    };
-    const actual = actions.selectTeam('Team Cool');
+  t.same(actual, expected, 'Should create an array of checkins');
+  t.end();
+});
 
-    t.same(actual, expected, 'should create a select team action creator');
+test('Create Team Reducer', nest => {
+  nest.test('Add Checkin Case', t => {
+    const checkInID = cuid();
+    const userID = cuid();
+    const action = actions.addCheckIn({
+      date: '1/1/2017',
+      recentWork: 'Worked on scrum app',
+      questions: 'When will the backend be ready',
+      today: 'Wrote tests for create team reducer',
+      id: checkInID,
+      userID
+    });
+    const state = {};
+    const actual = reducer(state, action);
+    const expected = {
+      [checkInID]: {
+        date: '1/1/2017',
+        recentWork: 'Worked on scrum app',
+        questions: 'When will the backend be ready',
+        today: 'Wrote tests for create team reducer',
+        id: checkInID,
+        userID
+      }
+    };
+    t.same(actual, expected, 'Should Add A Checkin to state');
     t.end();
   });
 });
