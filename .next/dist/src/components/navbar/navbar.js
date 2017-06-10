@@ -51,11 +51,14 @@ var Navbar = function Navbar(props) {
   return _react2.default.createElement(_AppBar2.default, {
     style: styles.nav,
     showMenuIconButton: false,
-    title: _react2.default.createElement('span', { style: styles.title }, props.teamName + ' Board'),
+    title: _react2.default.createElement('span', { style: styles.title }, props.teamName + ' Scrum Board'),
     onTitleTouchTap: handleTouchTap,
     iconElementLeft: _react2.default.createElement(_IconButton2.default, null, _react2.default.createElement(_close2.default, null)),
     iconElementRight: _react2.default.createElement(_FlatButton2.default, { label: 'Sign Out' })
   });
 };
 
+Navbar.defaultProps = {
+  teamName: 'Unnamed Team'
+};
 exports.default = Navbar;

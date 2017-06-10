@@ -26,10 +26,13 @@ const Navbar = props =>
   <AppBar
     style={styles.nav}
     showMenuIconButton={false}
-    title={<span style={styles.title}>{`${props.teamName} Board`}</span>}
+    title={<span style={styles.title}>{`${props.teamName} Scrum Board`}</span>}
     onTitleTouchTap={handleTouchTap}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Sign Out" />}
   />;
 
+Navbar.defaultProps = {
+  teamName: 'Unnamed Team'
+};
 export default Navbar;
