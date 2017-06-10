@@ -1,21 +1,25 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import LogoGithub from 'react-icons/lib/go/mark-github';
-import Paper from 'material-ui/Paper';
 import FontIcon from 'material-ui/FontIcon';
 import withMuiTheme from '../src/components/MaterialHOC/index';
+import Navbar from '../src/components/navbar/navbar';
+import Login from '../src/components/login/container';
 
 const style = {
-  width: 120,
-  textAlign: 'center',
+  width: '100%',
+  marginTop: 120,
   display: 'flex',
+  postion: 'relative',
+  flexDirection: 'column',
   alignItems: 'center',
-  verticalAlign: 'center'
+  alignContent: 'center',
+  justifyContent: 'center'
 };
+
 export default withMuiTheme(props =>
-  <div>
-    <Paper style={style} zDepth={3}>
-      <FlatButton target="_blank" label="Sign In" icon={<LogoGithub />} />
-    </Paper>
+  <div style={{ width: '100%' }}>
+    <Navbar teamName={'Sign In to view'} />
+    <div style={style}>
+      <Login />
+    </div>
   </div>
 );

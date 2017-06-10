@@ -10,8 +10,8 @@
     "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .",
     "build": "next build",
     "start": "next start -p 8000",
-    "test": "clear; npm run -s lint ; tape -r babel-register src/**/*.spec.js | faucet ;",
-    "watch": "watch 'npm run -s test'"
+    "test": "clear; tape -r babel-register src/**/*.spec.js | faucet ;",
+    "watch": "watch 'npm run -s test'; npm run lint;"
   },
   "dependencies": {
     "cuid": "^1.3.8",
