@@ -1,5 +1,5 @@
 import cuid from 'cuid';
-
+import moment from 'moment';
 // constants
 const CREATE_TEAM = 'CREATE_TEAM';
 const SELECT_TEAM = 'SELECT_TEAM';
@@ -51,7 +51,7 @@ export const addCheckIn = ({
 
 // Selectors
 export const getTeamStatus = state =>
-  Object.keys(state).map(id => state[id]);
+  Object.keys(state).map(id => state[id]).sort((a, b) => moment(b.date).diff(moment(a.date)));
 export const createOrJoinSelector = state => state.teams || [];
 
 // Reducer

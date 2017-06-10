@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (props) {
   return _react2.default.createElement(_DatePicker2.default, {
+    defaultDate: props.currentDate,
     floatingLabelText: 'Date',
     autoOk: true,
     formatDate: props.formatDate,

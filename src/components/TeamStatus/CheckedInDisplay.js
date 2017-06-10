@@ -5,8 +5,9 @@ import Avatar from 'material-ui/Avatar/Avatar';
 import UserIcon from 'react-icons/lib/fa/user';
 import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
 
-const CheckedInDisplay = ({ checkin }) =>
+const CheckedInDisplay = ({ handleOpen, checkin }) =>
   <ListItem
+    onTouchTap={handleOpen}
     key={checkin.id}
     leftAvatar={<Avatar icon={<UserIcon />} />}
     primaryText={checkin.today}

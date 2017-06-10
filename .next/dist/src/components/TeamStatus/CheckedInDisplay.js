@@ -31,8 +31,10 @@ function _interopRequireDefault(obj) {
 }
 
 var CheckedInDisplay = function CheckedInDisplay(_ref) {
-  var checkin = _ref.checkin;
+  var handleOpen = _ref.handleOpen,
+      checkin = _ref.checkin;
   return _react2.default.createElement(_ListItem2.default, {
+    onTouchTap: handleOpen,
     key: checkin.id,
     leftAvatar: _react2.default.createElement(_Avatar2.default, { icon: _react2.default.createElement(_user2.default, null) }),
     primaryText: checkin.today,

@@ -20,7 +20,10 @@ const style = {
 
 export default class CheckIn extends Component {
   state = {
-    open: false
+    open: false,
+    checkIn: {
+      date: moment().format('l')
+    }
   };
   getDate = (e, date) => {
     const todaysDate = moment(date).format('l');

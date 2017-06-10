@@ -11,6 +11,7 @@ const style = {
 export default function (props) {
   return (
     <DatePicker
+      defaultDate={props.currentDate}
       floatingLabelText="Date"
       autoOk
       formatDate={props.formatDate}

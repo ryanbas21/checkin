@@ -23,6 +23,10 @@ var _cuid = require('cuid');
 
 var _cuid2 = _interopRequireDefault(_cuid);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -98,6 +102,8 @@ var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
 var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
   return (0, _keys2.default)(state).map(function (id) {
     return state[id];
+  }).sort(function (a, b) {
+    return (0, _moment2.default)(b.date).diff((0, _moment2.default)(a.date));
   });
 };
 var createOrJoinSelector = exports.createOrJoinSelector = function createOrJoinSelector(state) {

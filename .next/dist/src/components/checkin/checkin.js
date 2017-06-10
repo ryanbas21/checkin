@@ -96,7 +96,10 @@ var CheckIn = function (_Component) {
     }
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = CheckIn.__proto__ || (0, _getPrototypeOf2.default)(CheckIn)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      open: false
+      open: false,
+      checkIn: {
+        date: (0, _moment2.default)().format('l')
+      }
     }, _this.getDate = function (e, date) {
       var todaysDate = (0, _moment2.default)(date).format('l');
       _this.setState({
