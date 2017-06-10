@@ -1,9 +1,7 @@
-import { compose } from 'react-redux';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { compose } from 'redux';
 import withRedux from 'next-redux-wrapper';
+import store from '../../store/index';
+import { userAgent, withMuiTheme } from './withMUITheme';
 
-
-export default compose(
-  getMuiTheme({userAgent: false})
-  withRedux(store))
+// compose higher order Component
+export default compose(withMuiTheme(userAgent), withRedux(store));

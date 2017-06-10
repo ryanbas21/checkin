@@ -54,6 +54,10 @@ var _index = require('../src/store/index');
 
 var _index2 = _interopRequireDefault(_index);
 
+var _index3 = require('../src/components/MaterialHOC/index');
+
+var _index4 = _interopRequireDefault(_index3);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -66,13 +70,7 @@ var muiTheme = (0, _getMuiTheme2.default)({
   userAgent: false
 });
 var Board = function Board() {
-  return _react2.default.createElement(_MuiThemeProvider2.default, { muiTheme: muiTheme }, _react2.default.createElement('div', null, _react2.default.createElement(_TeamMembers2.default, null), _react2.default.createElement(_navbar2.default, { team: "Ryan's Team" }), _react2.default.createElement(_container4.default, null), _react2.default.createElement(_container2.default, null)));
+  return _react2.default.createElement('div', null, _react2.default.createElement(_TeamMembers2.default, null), _react2.default.createElement(_navbar2.default, { team: "Ryan's Team" }), _react2.default.createElement(_container4.default, null), _react2.default.createElement(_container2.default, null));
 };
 
-// // create higher-order page component, using compose()
-// export default compose(
-//   withMuiTheme(uiAgent),
-//   withRedux(store )
-// )(component);
-
-exports.default = (0, _nextReduxWrapper2.default)(_index2.default)(Board);
+exports.default = (0, _index4.default)(Board);

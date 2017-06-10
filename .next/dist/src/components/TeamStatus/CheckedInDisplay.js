@@ -37,8 +37,8 @@ var CheckedInDisplay = function CheckedInDisplay(_ref) {
     onTouchTap: handleOpen,
     key: checkin.id,
     leftAvatar: _react2.default.createElement(_Avatar2.default, { icon: _react2.default.createElement(_user2.default, null) }),
-    primaryText: checkin.today,
-    secondaryText: _react2.default.createElement('p', null, _react2.default.createElement('span', { style: { color: _colors.darkBlack } }, checkin.date.toString()), ' --', checkin.recentWork),
+    primaryText: checkin.date.toString() + ' : ' + checkin.today.split('').slice(0, 25).join('') + '...',
+    secondaryText: _react2.default.createElement('p', null, _react2.default.createElement('span', { style: { color: _colors.darkBlack } }, 'Recent Work: ' + checkin.recentWork.split('').slice(0, 10).join('') + '...'), ' ', '--', 'Click To View More'),
     secondaryTextLines: 2
   });
 };

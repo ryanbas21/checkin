@@ -1,21 +1,8 @@
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import withRedux from 'next-redux-wrapper';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Head from '../../src/components/head/head';
-import store from '../../src/store/index';
 import CreateOrJoin from '../../src/components/CreateOrJoin/Container';
+import withMUITheme from '../../src/components/MaterialHOC/index';
 
-try {
-  injectTapEventPlugin();
-} catch (e) {}
+const Teams = props => <CreateOrJoin />;
 
-const muiTheme = getMuiTheme({ userAgent: false });
-
-const Teams = props =>
-  <MuiThemeProvider theme={muiTheme}>
-    <CreateOrJoin />
-  </MuiThemeProvider>;
-
-export default withRedux(store)(Teams);
+export default withMUITheme(Teams);

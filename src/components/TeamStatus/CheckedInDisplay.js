@@ -10,11 +10,15 @@ const CheckedInDisplay = ({ handleOpen, checkin }) =>
     onTouchTap={handleOpen}
     key={checkin.id}
     leftAvatar={<Avatar icon={<UserIcon />} />}
-    primaryText={checkin.today}
+    primaryText={`${checkin.date.toString()} : ${checkin.today.split('').slice(0, 25).join('')}...`}
     secondaryText={
       <p>
-        <span style={{ color: darkBlack }}>{checkin.date.toString()}</span> --
-        {checkin.recentWork}
+        <span style={{ color: darkBlack }}>{`Recent Work: ${checkin.recentWork
+          .split('')
+          .slice(0, 10)
+          .join('')}...`}</span>
+        {' '}--
+        {'Click To View More'}
       </p>
     }
     secondaryTextLines={2}
