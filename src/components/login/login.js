@@ -3,6 +3,7 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import LoginButton from './signin-button/index';
+import Loading from '../loading-icon';
 
 const login = {
   display: 'flex',
@@ -23,14 +24,17 @@ const card = {
 
 export default props =>
   <Paper style={login} zDepth={5}>
-    <Card>
-      <CardHeader
-        style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
-        title={'Sign In With Github'}
-        showExpandableButton={false}
-      />
-      <CardText style={card}>
-        <FlatButton target="_blank" icon={<LoginButton />} />
-      </CardText>
-    </Card>
+    {props.user.isFetchingLogin
+      ? <Loading />
+      : <Card>
+        <CardHeader
+          style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
+          title={'Sign In With Github'}
+          showExpandableButton={false}
+        />
+        <CardText style={card}>
+          {props.user.error ? <div>{props.user.error}</div> : <div />}
+          <FlatButton target="_blank" onClick={props.actions.startLogin} icon={<LoginButton />} />
+        </CardText>
+      </Card>}
   </Paper>;

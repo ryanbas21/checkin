@@ -4,6 +4,7 @@ import Checkin from '../src/components/checkin/container';
 import TeamMembers from '../src/components/TeamMembers/TeamMembers';
 import TeamStatus from '../src/components/TeamStatus/container';
 import withMUITheme from '../src/components/MaterialHOC/index';
+import CheckLogin from '../src/components/login/LoggedInHOC/index';
 
 const Board = () =>
   <div>
@@ -13,4 +14,4 @@ const Board = () =>
     <Checkin />
   </div>;
 
-export default withMUITheme(Board);
+export default CheckLogin(withMUITheme(Board));

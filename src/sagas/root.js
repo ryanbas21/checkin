@@ -1,8 +1,6 @@
 import { fork, all } from 'redux-saga/effects';
+import LoginSaga from '../components/login/signin.saga';
 
-function* placeholder() {
-  yield 'placeholder';
-}
 export default function*() {
-  yield all([fork(placeholder)]);
+  yield all([fork(LoginSaga)]);
 }

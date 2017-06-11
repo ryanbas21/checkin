@@ -1,4 +1,6 @@
 import firebase from 'firebase';
 
-export function getGithubLogin() {}
+const provider = new firebase.auth.GithubAuthProvider();
+
+export const getGithubLogin = () => firebase.auth().signInWithPopup(provider);
 export function signoutGithub() {}
