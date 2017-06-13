@@ -22,13 +22,19 @@ var _firebase = require('../lib/firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _CreateTeam = require('../components/CreateTeam');
+var _createTeam = require('../components/CreateTeam/createTeam.reducer');
+
+var _createTeam2 = _interopRequireDefault(_createTeam);
+
+var _signinReducer = require('../components/login/signin-reducer');
+
+var _signinReducer2 = _interopRequireDefault(_signinReducer);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-var rootReducer = (0, _redux.combineReducers)({ createTeamReducer: _CreateTeam.createTeamReducer });
+var rootReducer = (0, _redux.combineReducers)({ currentTeam: _createTeam2.default, userInfo: _signinReducer2.default });
 
 var sagas = (0, _reduxSaga2.default)();
 

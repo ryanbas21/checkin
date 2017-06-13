@@ -34,7 +34,7 @@ test('Test the getTeamStatus Selector', t => {
   };
   const expected = [
     {
-      date: '1/1/2017',
+      date: '1/2/2017',
       recentWork: 'Worked on scrum app',
       questions: 'When will the backend be ready',
       today: 'Wrote tests for create team reducer',
@@ -42,7 +42,7 @@ test('Test the getTeamStatus Selector', t => {
       userID
     },
     {
-      date: '1/2/2017',
+      date: '1/1/2017',
       recentWork: 'Worked on scrum app',
       questions: 'When will the backend be ready',
       today: 'Wrote tests for create team reducer',

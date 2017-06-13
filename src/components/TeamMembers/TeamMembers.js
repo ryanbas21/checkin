@@ -10,6 +10,7 @@ import ToggleOn from 'react-icons/lib/fa/toggle-on';
 
 const styles = {
   toggle: {
+    width: 50,
     marginTop: 80,
     right: 0,
     zIndex: 10000,

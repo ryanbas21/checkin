@@ -1,0 +1,40 @@
+import React from 'react';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
+import LoginButton from './signin-button/index';
+import Loading from '../loading-icon';
+
+const login = {
+  display: 'flex',
+  alignItems: 'center',
+  alignContent: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  width: 500,
+  height: 500
+};
+const card = {
+  display: 'flex',
+  alignContent: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center'
+};
+
+export default props =>
+  <Paper style={login} zDepth={5}>
+    {props.user.isFetchingLogin
+      ? <Loading />
+      : <Card>
+        <CardHeader
+          style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
+          title={'Sign In With Github'}
+          showExpandableButton={false}
+        />
+        <CardText style={card}>
+          {props.user.error ? <div>{props.user.error}</div> : <div />}
+          <FlatButton target="_blank" onClick={props.actions.startLogin} icon={<LoginButton />} />
+        </CardText>
+      </Card>}
+  </Paper>;
