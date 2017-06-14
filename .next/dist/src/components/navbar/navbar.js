@@ -59,6 +59,7 @@ var Navbar = function Navbar(props) {
 };
 
 Navbar.defaultProps = {
-  teamName: 'Unnamed Team'
+  teamName: 'Unnamed Team',
+  isLoggedIn: false
 };
 exports.default = Navbar;

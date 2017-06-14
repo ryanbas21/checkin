@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
+import Router from 'next/router';
 import FlatButton from 'material-ui/FlatButton';
 import LoginButton from './signin-button/index';
 import Loading from '../loading-icon';
@@ -23,6 +24,9 @@ const card = {
 };
 
 export default props =>
+  // !props.user.isLoggedin
+  // ? Router.replace('/login')
+  // :
   <Paper style={login} zDepth={5}>
     {props.user.isFetchingLogin
       ? <Loading />

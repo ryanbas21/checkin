@@ -7,13 +7,6 @@ const ADD_CHECKIN = 'ADD_CHECKIN';
 const ADD_TEAM = 'ADD_TEAM';
 
 // Actions
-export const createTeam = (name = '', id = cuid()) => ({
-  type: CREATE_TEAM,
-  payload: {
-    name,
-    id
-  }
-});
 
 export const selectTeam = (id = cuid()) => ({
   type: SELECT_TEAM,
@@ -53,9 +46,10 @@ export const addCheckIn = ({
 export const getTeamStatus = state =>
   Object.keys(state).map(id => state[id]).sort((a, b) => moment(b.date).diff(moment(a.date)));
 export const createOrJoinSelector = state => state.teams || [];
-
 // Reducer
-const initialState = {};
+const initialState = {
+  teams: []
+};
 export default function createTeamReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CHECKIN:
@@ -66,8 +60,12 @@ export default function createTeamReducer(state = initialState, action) {
     case SELECT_TEAM: {
       return {};
     }
-    case CREATE_TEAM:
-      return {};
+    case ADD_TEAM: {
+      return {
+        ...state,
+        teams: state.teams.concat(action.payload)
+      };
+    }
     default:
       return state;
   }

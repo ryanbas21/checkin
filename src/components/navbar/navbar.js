@@ -29,10 +29,11 @@ const Navbar = props =>
     title={<span style={styles.title}>{`${props.teamName} Scrum Board`}</span>}
     onTitleTouchTap={handleTouchTap}
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-    iconElementRight={<FlatButton label="Sign Out" />}
+    iconElementRight={<FlatButton label={'Sign Out'} />}
   />;
 
 Navbar.defaultProps = {
-  teamName: 'Unnamed Team'
+  teamName: 'Unnamed Team',
+  isLoggedIn: false
 };
 export default Navbar;

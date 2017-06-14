@@ -43,6 +43,15 @@ test('Get User State Selector', t => {
   t.same(actual, expected, msg);
   t.end();
 });
+test('Get Auth', t => {
+  const msg = 'Should return boolean of logged in or not';
+  const state = { isLoggedIn: true };
+  const actual = actions.getAuthState(state);
+  const expected = true;
+
+  t.same(actual, expected, msg);
+  t.end();
+});
 test('Should Test The Signin Reducer', nest => {
   nest.test('Login Saga', t => {
     t.test('Start Login dispatched', assert => {
@@ -65,16 +74,17 @@ test('Should Test The Signin Reducer', nest => {
     });
   });
   nest.test('Login Reducer', t => {
-    const state = {
+    const createState = () => ({
       userData: {},
       isFetchingLogin: false,
       isLoggedIn: false,
       error: undefined,
       teams: []
-    };
+    });
     t.test('Is Fetching Login update state', assert => {
-      const msg = 'Should update the boolean value of IS_FETCHING_LOGIN';
+      const msg = 'Should update login fetching status';
       const action = actions.isFetchingLogin();
+      const state = createState();
       const actual = LoginReducer(state, action);
       const expected = { ...state, isFetchingLogin: true };
 
@@ -91,6 +101,7 @@ test('Should Test The Signin Reducer', nest => {
         uid: '18267769'
       };
       const action = actions.loginSuccess(user);
+      const state = createState();
       const actual = LoginReducer(state, action);
       const expected = {
         isFetchingLogin: false,
@@ -111,6 +122,7 @@ test('Should Test The Signin Reducer', nest => {
     });
     t.test('Update isLoggedIn', assert => {
       const msg = 'Should update Is Logged In Boolean';
+      const state = createState();
       const action = actions.isLoggedIn();
       const actual = LoginReducer(state, action);
       const expected = { ...state, isLoggedIn: true };
@@ -121,6 +133,7 @@ test('Should Test The Signin Reducer', nest => {
     t.test('Login Error', assert => {
       const msg = 'Should update with an error in state if login failed';
       const action = actions.loginError('Error Logging In');
+      const state = createState();
       const actual = LoginReducer(state, action);
       const expected = { ...state, error: action.payload, isFetchingLogin: false };
 

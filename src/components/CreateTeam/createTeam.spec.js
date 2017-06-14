@@ -83,4 +83,16 @@ test('Create Team Reducer', nest => {
     t.same(actual, expected, 'Should Add A Checkin to state');
     t.end();
   });
+  nest.test('Add_Team case', t => {
+    const msg = 'Should Test adding a team to state';
+    const state = {
+      teams: []
+    };
+    const action = actions.addTeam('Red');
+    const expected = { teams: [{ id: action.payload.id, name: 'Red' }] };
+    const actual = reducer(state, action);
+
+    t.same(actual, expected, msg);
+    t.end();
+  });
 });

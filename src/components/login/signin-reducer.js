@@ -16,6 +16,7 @@ export const isLoggedIn = () => ({ type: IS_LOGGED_IN });
 
 // Selector
 export const getUserState = state => ({ ...state.userInfo });
+export const getAuthState = state => state.isLoggedIn === true;
 // Reducer
 const initialState = {
   isFetchingLogin: false,

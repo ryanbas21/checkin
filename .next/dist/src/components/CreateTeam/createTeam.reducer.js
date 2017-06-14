@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createOrJoinSelector = exports.getTeamStatus = exports.addCheckIn = exports.addTeam = exports.selectTeam = exports.createTeam = undefined;
+exports.createOrJoinSelector = exports.getTeamStatus = exports.addCheckIn = exports.addTeam = exports.selectTeam = undefined;
 
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
@@ -38,17 +38,6 @@ var ADD_CHECKIN = 'ADD_CHECKIN';
 var ADD_TEAM = 'ADD_TEAM';
 
 // Actions
-var createTeam = exports.createTeam = function createTeam() {
-  var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _cuid2.default)();
-  return {
-    type: CREATE_TEAM,
-    payload: {
-      name: name,
-      id: id
-    }
-  };
-};
 
 var selectTeam = exports.selectTeam = function selectTeam() {
   var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _cuid2.default)();
@@ -109,9 +98,10 @@ var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
 var createOrJoinSelector = exports.createOrJoinSelector = function createOrJoinSelector(state) {
   return state.teams || [];
 };
-
 // Reducer
-var initialState = {};
+var initialState = {
+  teams: []
+};
 function createTeamReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
@@ -123,8 +113,12 @@ function createTeamReducer() {
       {
         return {};
       }
-    case CREATE_TEAM:
-      return {};
+    case ADD_TEAM:
+      {
+        return (0, _extends4.default)({}, state, {
+          teams: state.teams.concat(action.payload)
+        });
+      }
     default:
       return state;
   }

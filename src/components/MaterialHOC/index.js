@@ -1,7 +1,8 @@
 import { compose } from 'redux';
 import withRedux from 'next-redux-wrapper';
 import store from '../../store/index';
-import { userAgent, withMuiTheme } from './withMUITheme';
+import { createTheme, withMuiTheme } from './withMUITheme';
+import withAuth from '../login/LoggedInHOC/index';
 
 // compose higher order Component
-export default compose(withMuiTheme(userAgent), withRedux(store));
+export default compose(withRedux(store), withMuiTheme(createTheme), withAuth);
