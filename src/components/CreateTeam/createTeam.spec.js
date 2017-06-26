@@ -21,6 +21,23 @@ const createCheckinFactory = (
   teamID,
   userID
 });
+const createTeamData = (
+  {
+    teamID = cuid(),
+    id = cuid(),
+    admin = '',
+    teamName = '',
+    checkIns = [createCheckinFactory()]
+  } = {}
+) => ({
+  teamName,
+  teamID,
+  teamAdmin: {
+    admin,
+    id
+  },
+  checkIns
+});
 
 test('Should test the selectTeam selector', t => {
   const state = {
@@ -36,20 +53,11 @@ test('Test the getCheckins Selector', t => {
   const msg = 'Should slice off the checkins from the selected team';
   const teamID = cuid();
   const adminID = cuid();
+  const checkin = createTeamData();
   const state = {
-    teams: [
-      {
-        teamName: 'Blue',
-        teamID,
-        teamAdmin: {
-          admin: 'Ryan',
-          id: adminID
-        },
-        checkIns: [teamData]
-      }
-    ]
+    teams: [checkin]
   };
-  const expected = [teamData];
+  const expected = [checkin.checkIns];
   const actual = actions.getCheckins(state);
   t.same(actual, expected, 'Should create an array of checkins');
   t.end();

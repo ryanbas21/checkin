@@ -45,10 +45,9 @@ export const addCheckIn = ({
 });
 
 // Selectors
-export const getCheckins = state => state.checkIns;
-export const getTeamStatus = state => Object.keys(state)
-    .map(id => state[id])
-    .sort((a, b) => moment(b.date).diff(moment(a.date)));
+export const getCheckins = state => state.teams.map(team => team.checkIns);
+export const getTeamStatus = state =>
+  Object.keys(state).map(id => state[id]).sort((a, b) => moment(b.date).diff(moment(a.date)));
 export const createOrJoinSelector = state => state.teams || [];
 // Reducer
 const initialState = {

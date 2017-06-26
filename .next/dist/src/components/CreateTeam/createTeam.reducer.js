@@ -92,7 +92,9 @@ var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
 
 // Selectors
 var getCheckins = exports.getCheckins = function getCheckins(state) {
-  return state.checkIns;
+  return state.teams.map(function (team) {
+    return team.checkIns;
+  });
 };
 var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
   return (0, _keys2.default)(state).map(function (id) {

@@ -50,6 +50,7 @@ class TeamStatus extends Component {
     const actions = [
       <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />
     ];
+    console.log('hello', this.props);
     return (
       <div style={style.outer}>
         {this.props.status.length
@@ -58,7 +59,6 @@ class TeamStatus extends Component {
               <Subheader>Activity</Subheader>
               {this.props.status.map(checkin =>
                 <div>
-                  {console.log(this.props)}
                   {/* <CheckedInDisplay
                     handleOpen={this.handleOpen}
                     key={checkin.id}
