@@ -58,12 +58,14 @@ class TeamStatus extends Component {
               <Subheader>Activity</Subheader>
               {this.props.status.map(checkin =>
                 <div>
-                  <CheckedInDisplay
+                  {console.log(this.props)}
+                  {/* <CheckedInDisplay
                     handleOpen={this.handleOpen}
                     key={checkin.id}
                     checkin={checkin}
-                  />
+                  /> */}
                   <Dialog
+                    key={`${checkin.id}dialog`}
                     title={checkin.today}
                     actions={actions}
                     modal={false}

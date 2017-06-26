@@ -6,3 +6,5 @@ import withAuth from '../login/LoggedInHOC/index';
 
 // compose higher order Component
 export default compose(withRedux(store), withMuiTheme(createTheme), withAuth);
+
+export const withoutAuth = compose(withRedux(store), withMuiTheme(createTheme));

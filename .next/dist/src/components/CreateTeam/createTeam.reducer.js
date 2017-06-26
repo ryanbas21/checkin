@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createOrJoinSelector = exports.getTeamStatus = exports.addCheckIn = exports.addTeam = exports.selectTeam = undefined;
+exports.createOrJoinSelector = exports.getTeamStatus = exports.getCheckins = exports.addCheckIn = exports.addTeam = exports.selectTeam = undefined;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _extends3 = require('babel-runtime/helpers/extends');
+var _extends2 = require('babel-runtime/helpers/extends');
 
-var _extends4 = _interopRequireDefault(_extends3);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -50,12 +50,12 @@ var selectTeam = exports.selectTeam = function selectTeam() {
 // Difference between addTeam and createTeam?
 var addTeam = exports.addTeam = function addTeam() {
   var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _cuid2.default)();
+  var teamID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _cuid2.default)();
   return {
     type: ADD_TEAM,
     payload: {
       name: name,
-      id: id
+      teamID: teamID
     }
   };
 };
@@ -73,7 +73,9 @@ var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
       _ref$id = _ref.id,
       id = _ref$id === undefined ? (0, _cuid2.default)() : _ref$id,
       _ref$userID = _ref.userID,
-      userID = _ref$userID === undefined ? (0, _cuid2.default)() : _ref$userID;
+      userID = _ref$userID === undefined ? (0, _cuid2.default)() : _ref$userID,
+      _ref$teamID = _ref.teamID,
+      teamID = _ref$teamID === undefined ? (0, _cuid2.default)() : _ref$teamID;
   return {
     type: ADD_CHECKIN,
     payload: {
@@ -82,12 +84,16 @@ var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
       recentWork: recentWork,
       questions: questions,
       id: id,
-      userID: userID
+      userID: userID,
+      teamID: teamID
     }
   };
 };
 
 // Selectors
+var getCheckins = exports.getCheckins = function getCheckins(state) {
+  return state.checkIns;
+};
 var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
   return (0, _keys2.default)(state).map(function (id) {
     return state[id];
@@ -108,14 +114,19 @@ function createTeamReducer() {
 
   switch (action.type) {
     case ADD_CHECKIN:
-      return (0, _extends4.default)({}, state, (0, _defineProperty3.default)({}, action.payload.id, action.payload));
+      return (0, _extends3.default)({}, state, {
+        teams: state.teams.map(function (team) {
+          return team.teamID === action.payload.teamID ? (0, _extends3.default)({}, team, { checkIns: [].concat((0, _toConsumableArray3.default)(team.checkIns), [action.payload]) }) : team;
+        })
+      });
+
     case SELECT_TEAM:
       {
         return {};
       }
     case ADD_TEAM:
       {
-        return (0, _extends4.default)({}, state, {
+        return (0, _extends3.default)({}, state, {
           teams: state.teams.concat(action.payload)
         });
       }

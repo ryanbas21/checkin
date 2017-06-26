@@ -1,0 +1,10 @@
+{
+    "libs": [
+        "browser",
+        "jquery"
+    ],
+    "plugins": {
+        "node": true,
+        "es_modules": true
+    }
+}

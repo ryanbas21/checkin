@@ -14,11 +14,11 @@ export const selectTeam = (id = cuid()) => ({
 });
 
 // Difference between addTeam and createTeam?
-export const addTeam = (name = '', id = cuid()) => ({
+export const addTeam = (name = '', teamID = cuid()) => ({
   type: ADD_TEAM,
   payload: {
     name,
-    id
+    teamID
   }
 });
 
@@ -29,7 +29,8 @@ export const addCheckIn = ({
   recentWork = '',
   questions = '',
   id = cuid(),
-  userID = cuid()
+  userID = cuid(),
+  teamID = cuid()
 }) => ({
   type: ADD_CHECKIN,
   payload: {
@@ -38,13 +39,16 @@ export const addCheckIn = ({
     recentWork,
     questions,
     id,
-    userID
+    userID,
+    teamID
   }
 });
 
 // Selectors
-export const getTeamStatus = state =>
-  Object.keys(state).map(id => state[id]).sort((a, b) => moment(b.date).diff(moment(a.date)));
+export const getCheckins = state => state.checkIns;
+export const getTeamStatus = state => Object.keys(state)
+    .map(id => state[id])
+    .sort((a, b) => moment(b.date).diff(moment(a.date)));
 export const createOrJoinSelector = state => state.teams || [];
 // Reducer
 const initialState = {
@@ -55,8 +59,14 @@ export default function createTeamReducer(state = initialState, action) {
     case ADD_CHECKIN:
       return {
         ...state,
-        [action.payload.id]: action.payload
+        teams: state.teams.map(
+          team =>
+            team.teamID === action.payload.teamID
+              ? { ...team, checkIns: [...team.checkIns, action.payload] }
+              : team
+        )
       };
+
     case SELECT_TEAM: {
       return {};
     }
