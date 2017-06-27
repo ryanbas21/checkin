@@ -31,6 +31,7 @@ CheckedInDisplay.propTypes = {
     today: PropTypes.string.isRequired,
     recentWork: PropTypes.string.isRequired,
     questions: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  handleOpen: PropTypes.func.isRequired
 };
 export default CheckedInDisplay;

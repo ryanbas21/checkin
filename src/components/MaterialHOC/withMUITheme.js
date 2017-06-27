@@ -5,7 +5,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 try {
   injectTapEventPlugin();
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 
 export const createTheme = getMuiTheme({ userAgent: false });
 

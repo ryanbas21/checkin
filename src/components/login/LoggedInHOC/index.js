@@ -8,4 +8,8 @@ import Login from '../container';
 const CheckLogin = Component => ({ store }) =>
   getAuthState(store.getState()) ? <Component /> : <Login />;
 
+CheckLogin.propTypes = {
+  store: PropTypes.func.isRequired
+};
+
 export default CheckLogin;

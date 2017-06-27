@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Toggle from 'material-ui/Toggle';
@@ -39,7 +40,7 @@ export default class TeamMembers extends Component {
     return (
       <div>
         <Toggle style={styles.toggle} onToggle={this.handleToggle} icon={ToggleOn} x />
-        <Drawer open containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
+        <Drawer containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
           <MenuItem style={{ textAlign: 'center' }}>Members</MenuItem>
           {Names.map(name =>
             <MenuItem key={name} style={{ paddingLeft: 10 }}>
@@ -53,4 +54,7 @@ export default class TeamMembers extends Component {
 }
 TeamMembers.defaultProps = {
   photoURL: <FontIcon className="material-icons" />
+};
+TeamMembers.propTypes = {
+  photoURL: PropTypes.element
 };

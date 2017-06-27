@@ -40,7 +40,6 @@
     "no-var": "error",
     "quotes": [2, "single", { "avoidEscape": true }],
     "semi": ["error", "always"],
-    "quotes": [2, "single"],
     "promise/param-names": 2,
     "promise/always-return": 2,
     "promise/catch-or-return": 2,

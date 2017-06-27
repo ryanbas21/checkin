@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
@@ -126,4 +127,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
+
+CreateTeam.propTypes = {
+  team: PropTypes.string.isRequired,
+  actions: PropTypes.shape({
+    addTeam: PropTypes.func.isRequired
+  }).isRequired
+};
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);

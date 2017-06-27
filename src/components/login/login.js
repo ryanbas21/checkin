@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import Router from 'next/router';
@@ -23,7 +24,7 @@ const card = {
   textAlign: 'center'
 };
 
-export default props =>
+const Login = props =>
   // !props.user.isLoggedin
   // ? Router.replace('/login')
   // :
@@ -42,3 +43,14 @@ export default props =>
         </CardText>
       </Card>}
   </Paper>;
+
+Login.propTypes = {
+  user: PropTypes.shape({
+    error: PropTypes.string.isRequired,
+    isFetchingLogin: PropTypes.boolean.isRequired
+  }).isRequired,
+  actions: PropTypes.shape({
+    startLogin: PropTypes.func.isRequired
+  }).isRequired
+};
+export default Login;

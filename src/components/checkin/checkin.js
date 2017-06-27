@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
@@ -113,3 +114,9 @@ export default class CheckIn extends Component {
     );
   }
 }
+
+CheckIn.propTypes = {
+  actions: PropTypes.shape({
+    addCheckIn: PropTypes.func.isRequired
+  }).isRequired
+};

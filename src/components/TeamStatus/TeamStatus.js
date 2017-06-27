@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -50,7 +51,6 @@ class TeamStatus extends Component {
     const actions = [
       <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />
     ];
-    console.log('hello', this.props);
     return (
       <div style={style.outer}>
         {this.props.status.length
@@ -85,4 +85,8 @@ class TeamStatus extends Component {
     );
   }
 }
+
+TeamStatus.propTypes = {
+  status: PropTypes.Array.isRequired
+};
 export default TeamStatus;
