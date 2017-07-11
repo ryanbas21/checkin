@@ -87,6 +87,6 @@ class TeamStatus extends Component {
 }
 
 TeamStatus.propTypes = {
-  status: PropTypes.Array.isRequired
+  status: PropTypes.array.isRequired
 };
 export default TeamStatus;

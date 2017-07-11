@@ -47,7 +47,7 @@ const Login = props =>
 Login.propTypes = {
   user: PropTypes.shape({
     error: PropTypes.string.isRequired,
-    isFetchingLogin: PropTypes.boolean.isRequired
+    isFetchingLogin: PropTypes.bool.isRequired
   }).isRequired,
   actions: PropTypes.shape({
     startLogin: PropTypes.func.isRequired
