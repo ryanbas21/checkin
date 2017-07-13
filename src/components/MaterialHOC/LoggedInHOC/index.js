@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAuthState } from '../../login/signin.saga';
-import ChooseTeam from '../../CreateOrJoin/Container';
+import { getAuthState } from '../../login/signin-reducer';
 import Login from '../../login/container';
 
 // state is not accessible
-const CheckLogin = Component => props =>
+const withAuth = Component => props =>
   <div>
     {props.auth ? <Component /> : <Login />}
   </div>;
 
-CheckLogin.propTypes = {
+withAuth.propTypes = {
   state: PropTypes.shape({
     isLoggedIn: PropTypes.bool.isRequired,
   }).isRequired,
@@ -19,4 +18,4 @@ CheckLogin.propTypes = {
 
 export default connect(state => ({
   auth: getAuthState(state),
-}))(CheckLogin);
+}))(withAuth);

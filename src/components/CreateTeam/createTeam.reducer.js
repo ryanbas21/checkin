@@ -64,7 +64,7 @@ export default function createTeamReducer(state = initialState, action) {
     case ADD_TEAM: {
       return {
         ...state,
-        teams: R.concat(state.teams, action.payload),
+        teams: R.concat(state.teams, [action.payload]),
       };
     }
     default:

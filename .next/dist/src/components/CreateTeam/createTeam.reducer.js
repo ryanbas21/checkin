@@ -118,7 +118,7 @@ function createTeamReducer() {
     case ADD_TEAM:
       {
         return (0, _extends3.default)({}, state, {
-          teams: _ramda2.default.concat(state.teams, action.payload)
+          teams: _ramda2.default.concat(state.teams, [action.payload])
         });
       }
     default:
