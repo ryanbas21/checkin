@@ -5,17 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createOrJoinSelector = exports.getTeamStatus = exports.getCheckins = exports.addCheckIn = exports.addTeam = exports.selectTeam = undefined;
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
-
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
 
 exports.default = createTeamReducer;
 
@@ -27,18 +19,23 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _ramda = require('ramda');
+
+var _ramda2 = _interopRequireDefault(_ramda);
+
+var _reducerHelpers = require('./reducer-helpers');
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
 // constants
 var CREATE_TEAM = 'CREATE_TEAM';
+var ADD_TEAM = 'ADD_TEAM';
 var SELECT_TEAM = 'SELECT_TEAM';
 var ADD_CHECKIN = 'ADD_CHECKIN';
-var ADD_TEAM = 'ADD_TEAM';
 
 // Actions
-
 var selectTeam = exports.selectTeam = function selectTeam() {
   var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _cuid2.default)();
   return {
@@ -46,8 +43,6 @@ var selectTeam = exports.selectTeam = function selectTeam() {
     payload: id
   };
 };
-
-// Difference between addTeam and createTeam?
 var addTeam = exports.addTeam = function addTeam() {
   var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var teamID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _cuid2.default)();
@@ -59,8 +54,6 @@ var addTeam = exports.addTeam = function addTeam() {
     }
   };
 };
-
-// Add default values for date, today, recent, and blockers
 var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
   var _ref$date = _ref.date,
       date = _ref$date === undefined ? Date.now() : _ref$date,
@@ -92,20 +85,19 @@ var addCheckIn = exports.addCheckIn = function addCheckIn(_ref) {
 
 // Selectors
 var getCheckins = exports.getCheckins = function getCheckins(state) {
-  return state.teams.map(function (team) {
+  return _ramda2.default.map(function (team) {
     return team.checkIns;
-  });
+  }, state.teams);
 };
 var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
-  return (0, _keys2.default)(state).map(function (id) {
-    return state[id];
-  }).sort(function (a, b) {
-    return (0, _moment2.default)(b.date).diff((0, _moment2.default)(a.date));
-  });
+  return _ramda2.default.map(function (id) {
+    return _ramda2.default.sort(_reducerHelpers.sortByTime, state[id]);
+  }, _ramda2.default.keys(state));
 };
 var createOrJoinSelector = exports.createOrJoinSelector = function createOrJoinSelector(state) {
   return state.teams || [];
 };
+
 // Reducer
 var initialState = {
   teams: []
@@ -117,11 +109,8 @@ function createTeamReducer() {
   switch (action.type) {
     case ADD_CHECKIN:
       return (0, _extends3.default)({}, state, {
-        teams: state.teams.map(function (team) {
-          return team.teamID === action.payload.teamID ? (0, _extends3.default)({}, team, { checkIns: [].concat((0, _toConsumableArray3.default)(team.checkIns), [action.payload]) }) : team;
-        })
+        teams: _ramda2.default.map((0, _reducerHelpers.addCheckinCallback)(action), state.teams)
       });
-
     case SELECT_TEAM:
       {
         return {};
@@ -129,7 +118,7 @@ function createTeamReducer() {
     case ADD_TEAM:
       {
         return (0, _extends3.default)({}, state, {
-          teams: state.teams.concat(action.payload)
+          teams: _ramda2.default.concat(state.teams, action.payload)
         });
       }
     default:

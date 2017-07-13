@@ -13,4 +13,4 @@ const Board = () =>
     <Checkin />
   </div>;
 
-export default authedPageWrapper(Board);
+export default withoutAuth(Board);

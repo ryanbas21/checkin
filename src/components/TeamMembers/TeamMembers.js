@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import R from 'ramda';
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -16,15 +17,15 @@ const styles = {
     right: 0,
     zIndex: 10000,
     thumbOff: {
-      backgroundColor: '#ffcccc'
+      backgroundColor: '#ffcccc',
     },
     trackOff: {
-      backgroundColor: '#ff9d9d'
+      backgroundColor: '#ff9d9d',
     },
     trackSwitched: {
-      backgroundColor: '#ff9d9d'
-    }
-  }
+      backgroundColor: '#ff9d9d',
+    },
+  },
 };
 const Names = ['Ryan', 'Eric', 'John', 'Mike', 'George', 'Casey', 'Greg'];
 
@@ -42,10 +43,12 @@ export default class TeamMembers extends Component {
         <Toggle style={styles.toggle} onToggle={this.handleToggle} icon={ToggleOn} x />
         <Drawer containerStyle={{ marginTop: 65 }} open={this.state.open} docked>
           <MenuItem style={{ textAlign: 'center' }}>Members</MenuItem>
-          {Names.map(name =>
-            <MenuItem key={name} style={{ paddingLeft: 10 }}>
-              <Avatar icon={<UserIcon />} style={{ margin: 5 }} />{name}
-            </MenuItem>
+          {R.map(
+            name =>
+              <MenuItem key={name} style={{ paddingLeft: 10 }}>
+                <Avatar icon={<UserIcon />} style={{ margin: 5 }} />{name}
+              </MenuItem>,
+            Names,
           )}
         </Drawer>
       </div>
@@ -53,8 +56,8 @@ export default class TeamMembers extends Component {
   }
 }
 TeamMembers.defaultProps = {
-  photoURL: <FontIcon className="material-icons" />
+  photoURL: <FontIcon className="material-icons" />,
 };
 TeamMembers.propTypes = {
-  photoURL: PropTypes.element
+  photoURL: PropTypes.element,
 };

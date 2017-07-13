@@ -14,22 +14,19 @@ const login = {
   justifyContent: 'center',
   textAlign: 'center',
   width: 500,
-  height: 500
+  height: 500,
 };
 const card = {
   display: 'flex',
   alignContent: 'center',
   alignItems: 'center',
   justifyContent: 'center',
-  textAlign: 'center'
+  textAlign: 'center',
 };
 
 const Login = props =>
-  // !props.user.isLoggedin
-  // ? Router.replace('/login')
-  // :
   <Paper style={login} zDepth={5}>
-    {props.user.isFetchingLogin
+    {props.fetching
       ? <Loading />
       : <Card>
         <CardHeader
@@ -38,19 +35,19 @@ const Login = props =>
           showExpandableButton={false}
         />
         <CardText style={card}>
-          {props.user.error ? <div>{props.user.error}</div> : <div />}
-          <FlatButton target="_blank" onClick={props.actions.startLogin} icon={<LoginButton />} />
+          {props.actions.error ? <div>{props.actions.error}</div> : <div />}
+          <FlatButton target="_blank" onClick={props.actions.fetchLogin} icon={<LoginButton />} />
         </CardText>
       </Card>}
   </Paper>;
 
 Login.propTypes = {
-  user: PropTypes.shape({
-    error: PropTypes.string.isRequired,
-    isFetchingLogin: PropTypes.bool.isRequired
-  }).isRequired,
+  fetching: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
   actions: PropTypes.shape({
-    startLogin: PropTypes.func.isRequired
-  }).isRequired
+    startLogin: PropTypes.func.isRequired,
+    fetchLogin: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired,
+  }).isRequired,
 };
 export default Login;
