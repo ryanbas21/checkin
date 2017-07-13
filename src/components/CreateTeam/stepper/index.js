@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../createTeam.reducer';
+import { addTeam, createOrJoinSelector } from '../createTeam.reducer';
 
 const style = {
   height: 1000,
@@ -19,8 +19,8 @@ const style = {
     display: 'flex',
     alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 };
 class CreateTeam extends React.Component {
   state = {
@@ -28,8 +28,8 @@ class CreateTeam extends React.Component {
     stepIndex: 0,
     team: {
       name: undefined,
-      invites: []
-    }
+      invites: [],
+    },
   };
   saveTeam = e => {
     if (!this.props.team.filter(team => team.name === this.state.team.name).length) {
@@ -42,15 +42,15 @@ class CreateTeam extends React.Component {
     this.setState({
       ...this.state,
       team: {
-        name: e.target.value
-      }
+        name: e.target.value,
+      },
     });
   };
   handleNext = e => {
     const { stepIndex } = this.state;
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2
+      finished: stepIndex >= 2,
     });
   };
 
@@ -122,16 +122,17 @@ class CreateTeam extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  team: actions.createOrJoinSelector(state)
+  team: createOrJoinSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators({ addTeam }, dispatch),
 });
 
 CreateTeam.propTypes = {
   team: PropTypes.string.isRequired,
   actions: PropTypes.shape({
-    addTeam: PropTypes.func.isRequired
-  }).isRequired
+    addTeam: PropTypes.func.isRequired,
+    createOrJoinSelector: PropTypes.func.isRequired,
+  }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);

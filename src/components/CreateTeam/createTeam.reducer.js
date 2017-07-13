@@ -1,7 +1,7 @@
 import cuid from 'cuid';
 import moment from 'moment';
 import R from 'ramda';
-import { sortByTime, addCheckinCallback } from './reducer-helpers';
+import { sortByTime, addCheckinCallback, filterTeamsById } from './reducer-helpers';
 
 // constants
 const CREATE_TEAM = 'CREATE_TEAM';
@@ -10,7 +10,7 @@ const SELECT_TEAM = 'SELECT_TEAM';
 const ADD_CHECKIN = 'ADD_CHECKIN';
 
 // Actions
-export const selectTeam = (id = cuid()) => ({
+export const selectTeam = id => ({
   type: SELECT_TEAM,
   payload: id,
 });
@@ -59,7 +59,10 @@ export default function createTeamReducer(state = initialState, action) {
         teams: R.map(addCheckinCallback(action), state.teams),
       };
     case SELECT_TEAM: {
-      return {};
+      return {
+        ...state,
+        currentTeam: R.compose(R.head, R.filter(filterTeamsById(action)))(state.teams),
+      };
     }
     case ADD_TEAM: {
       return {

@@ -10,8 +10,8 @@ const createCheckinFactory = (
     questions = 'Questions',
     id = cuid(),
     teamID = cuid(),
-    userID = cuid()
-  } = {}
+    userID = cuid(),
+  } = {},
 ) => ({
   date,
   today,
@@ -19,7 +19,7 @@ const createCheckinFactory = (
   questions,
   id,
   teamID,
-  userID
+  userID,
 });
 const createTeamData = (
   {
@@ -27,21 +27,21 @@ const createTeamData = (
     id = cuid(),
     admin = '',
     teamName = '',
-    checkIns = [createCheckinFactory()]
-  } = {}
+    checkIns = [createCheckinFactory()],
+  } = {},
 ) => ({
   teamName,
   teamID,
   teamAdmin: {
     admin,
-    id
+    id,
   },
-  checkIns
+  checkIns,
 });
 
 test('Should test the selectTeam selector', t => {
   const state = {
-    teams: ['Team cool', 'Team Red', 'Team Blue', 'Team Grey', 'Team Team']
+    teams: ['Team cool', 'Team Red', 'Team Blue', 'Team Grey', 'Team Team'],
   };
   const actual = actions.createOrJoinSelector(state);
   const expected = state.teams;
@@ -55,7 +55,7 @@ test('Test the getCheckins Selector', t => {
   const adminID = cuid();
   const checkin = createTeamData();
   const state = {
-    teams: [checkin]
+    teams: [checkin],
   };
   const expected = [checkin.checkIns];
   const actual = actions.getCheckins(state);
@@ -75,7 +75,7 @@ test('Create Team Reducer', nest => {
       today: 'Wrote tests for create team reducer',
       id: checkInID,
       userID,
-      teamID
+      teamID,
     });
     const adminID = cuid();
     const state = {
@@ -85,11 +85,11 @@ test('Create Team Reducer', nest => {
           teamID,
           teamAdmin: {
             admin: 'Ryan',
-            id: adminID
+            id: adminID,
           },
-          checkIns: []
-        }
-      ]
+          checkIns: [],
+        },
+      ],
     };
     const actual = reducer(state, action);
     const expected = {
@@ -99,11 +99,11 @@ test('Create Team Reducer', nest => {
           teamID,
           teamAdmin: {
             admin: 'Ryan',
-            id: adminID
+            id: adminID,
           },
-          checkIns: [action.payload]
-        }
-      ]
+          checkIns: [action.payload],
+        },
+      ],
     };
 
     t.same(actual, expected, 'Should Add A Checkin to state');
@@ -113,7 +113,7 @@ test('Create Team Reducer', nest => {
   nest.test('Add_Team case', t => {
     const msg = 'Should Test adding a team to state';
     const state = {
-      teams: []
+      teams: [],
     };
     const action = actions.addTeam('Red');
     const expected = { teams: [{ teamID: action.payload.teamID, name: 'Red' }] };
@@ -121,5 +121,50 @@ test('Create Team Reducer', nest => {
 
     t.same(actual, expected, msg);
     t.end();
+  });
+  nest.test('Select Team Case', assert => {
+    const msg = 'Should test the Select Team Reducer Case';
+    const teamID = cuid();
+    const userID = cuid();
+    const team2ID = cuid();
+    const user2ID = cuid();
+    const state = {
+      teams: [
+        {
+          teamName: 'Blue',
+          teamID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: userID,
+          },
+        },
+        {
+          teamName: 'Red',
+          teamID: team2ID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: user2ID,
+          },
+        },
+      ],
+      checkIns: [],
+    };
+
+    const action = actions.selectTeam(teamID);
+    const actual = reducer(state, action);
+    const expected = {
+      ...state,
+      currentTeam: {
+        teamName: 'Blue',
+        teamID,
+        teamAdmin: {
+          admin: 'Ryan',
+          id: userID,
+        },
+      },
+    };
+
+    assert.same(actual, expected, msg);
+    assert.end();
   });
 });

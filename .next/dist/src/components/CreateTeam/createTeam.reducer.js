@@ -36,8 +36,7 @@ var SELECT_TEAM = 'SELECT_TEAM';
 var ADD_CHECKIN = 'ADD_CHECKIN';
 
 // Actions
-var selectTeam = exports.selectTeam = function selectTeam() {
-  var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _cuid2.default)();
+var selectTeam = exports.selectTeam = function selectTeam(id) {
   return {
     type: SELECT_TEAM,
     payload: id
@@ -113,7 +112,9 @@ function createTeamReducer() {
       });
     case SELECT_TEAM:
       {
-        return {};
+        return (0, _extends3.default)({}, state, {
+          currentTeam: _ramda2.default.compose(_ramda2.default.head, _ramda2.default.filter((0, _reducerHelpers.filterTeamsById)(action)))(state.teams)
+        });
       }
     case ADD_TEAM:
       {
