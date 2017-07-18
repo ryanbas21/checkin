@@ -1,7 +1,9 @@
 import React from 'react';
+import R from 'ramda';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
+import Router from 'next/router';
 import TextField from 'material-ui/TextField';
 import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -32,8 +34,13 @@ class CreateTeam extends React.Component {
     },
   };
   saveTeam = e => {
-    if (!this.props.team.filter(team => team.name === this.state.team.name).length) {
-      return this.props.actions.addTeam(this.state.team.name);
+    const { actions } = this.props;
+    const teamNameExists = R.reject(
+      team => team.name === this.state.team.name,
+      this.props.team.teams,
+    );
+    if (teamNameExists) {
+      return actions.addTeam({ name: this.state.team.name, uid: this.props.team.uid });
     }
     this.state.stepIndex -= 1;
     return this.setState({ ...this.state, error: true });
@@ -63,14 +70,13 @@ class CreateTeam extends React.Component {
 
   renderStepActions(step) {
     const { stepIndex } = this.state;
-
     return (
       <div style={{ margin: '12px 0' }}>
         <RaisedButton
           label={stepIndex === 1 ? 'Finish' : 'Next'}
           disableTouchRipple
           disableFocusRipple
-          onClick={stepIndex === 0 ? this.saveTeam : null}
+          onClick={stepIndex === 0 ? this.saveTeam : Router.push('/')}
           primary
           onTouchTap={this.handleNext}
           style={{ marginRight: 12 }}
@@ -132,7 +138,6 @@ CreateTeam.propTypes = {
   team: PropTypes.string.isRequired,
   actions: PropTypes.shape({
     addTeam: PropTypes.func.isRequired,
-    createOrJoinSelector: PropTypes.func.isRequired,
   }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);

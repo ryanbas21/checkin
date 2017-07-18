@@ -42,9 +42,10 @@ const createTeamData = (
 test('Should test the selectTeam selector', t => {
   const state = {
     teams: ['Team cool', 'Team Red', 'Team Blue', 'Team Grey', 'Team Team'],
+    userInfo: { uid: 1 },
   };
   const actual = actions.createOrJoinSelector(state);
-  const expected = state.teams;
+  const expected = { teams: state.teams, uid: state.userInfo.uid };
   t.same(actual, expected, 'Should slice off the correct piece of state');
   t.end();
 });
@@ -68,6 +69,8 @@ test('Create Team Reducer', nest => {
     const checkInID = cuid();
     const userID = cuid();
     const teamID = cuid();
+    const adminID = cuid();
+
     const action = actions.addCheckIn({
       date: '1/1/2017',
       recentWork: 'Worked on scrum app',
@@ -77,7 +80,7 @@ test('Create Team Reducer', nest => {
       userID,
       teamID,
     });
-    const adminID = cuid();
+
     const state = {
       teams: [
         {
@@ -90,6 +93,7 @@ test('Create Team Reducer', nest => {
           checkIns: [],
         },
       ],
+      currentTeam: teamID,
     };
     const actual = reducer(state, action);
     const expected = {
@@ -104,6 +108,7 @@ test('Create Team Reducer', nest => {
           checkIns: [action.payload],
         },
       ],
+      currentTeam: teamID,
     };
 
     t.same(actual, expected, 'Should Add A Checkin to state');
@@ -115,8 +120,14 @@ test('Create Team Reducer', nest => {
     const state = {
       teams: [],
     };
-    const action = actions.addTeam('Red');
-    const expected = { teams: [{ teamID: action.payload.teamID, name: 'Red' }] };
+    const id = cuid();
+    const action = actions.addTeam({ name: 'Red', uid: id });
+    const { name, teamID, checkIns } = action.payload;
+
+    const expected = {
+      teams: [{ teamID: action.payload.teamID, name: 'Red', checkIns: [] }],
+      currentTeam: teamID,
+    };
     const actual = reducer(state, action);
 
     t.same(actual, expected, msg);
@@ -163,6 +174,18 @@ test('Create Team Reducer', nest => {
         },
       },
     };
+
+    assert.same(actual, expected, msg);
+    assert.end();
+  });
+  nest.test('Get Current Team Selector', assert => {
+    const msg = 'Should return team by ID';
+    const teamID = cuid();
+    const adminID = cuid();
+    const team = createTeamData();
+    const state = { teams: [team] };
+    const actual = actions.getCurrentTeam(state);
+    const expected = team;
 
     assert.same(actual, expected, msg);
     assert.end();

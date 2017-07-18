@@ -45,7 +45,7 @@ test('Get User State Selector', t => {
 });
 test('Get Auth', t => {
   const msg = 'Should return boolean of logged in or not';
-  const state = { isLoggedIn: true };
+  const state = { userInfo: { isLoggedIn: true } };
   const actual = actions.getAuthState(state);
   const expected = true;
 

@@ -9,17 +9,17 @@ import MobileTearSheet from '../MobileTearSheet/MobileTearSheet';
 
 const style = {
   inline: {
-    display: 'inline-block'
+    display: 'inline-block',
   },
   icon: {
     margin: 20,
     width: 100,
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
   },
   a: {
-    textDecoration: 'none'
-  }
+    textDecoration: 'none',
+  },
 };
 const dividerStyle = { marginTop: 20, marginBottom: 20 };
 

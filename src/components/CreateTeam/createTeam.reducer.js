@@ -1,7 +1,7 @@
 import cuid from 'cuid';
 import moment from 'moment';
 import R from 'ramda';
-import { sortByTime, addCheckinCallback, filterTeamsById } from './reducer-helpers';
+import { sortByTime, filterTeamsById } from './reducer-helpers';
 
 // constants
 const CREATE_TEAM = 'CREATE_TEAM';
@@ -14,11 +14,13 @@ export const selectTeam = id => ({
   type: SELECT_TEAM,
   payload: id,
 });
-export const addTeam = (name = '', teamID = cuid()) => ({
+export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
   type: ADD_TEAM,
   payload: {
     name,
     teamID,
+    uid,
+    checkIns: [],
   },
 });
 export const addCheckIn = ({
@@ -45,7 +47,11 @@ export const addCheckIn = ({
 // Selectors
 export const getCheckins = state => R.map(team => team.checkIns, state.teams);
 export const getTeamStatus = state => R.map(id => R.sort(sortByTime, state[id]), R.keys(state));
-export const createOrJoinSelector = state => state.teams || [];
+export const createOrJoinSelector = state => ({
+  teams: state.teams || [],
+  uid: state.userInfo.uid,
+});
+export const getCurrentTeam = (state, id) => R.find(team => team.id === id, state.teams);
 
 // Reducer
 const initialState = {
@@ -56,7 +62,13 @@ export default function createTeamReducer(state = initialState, action) {
     case ADD_CHECKIN:
       return {
         ...state,
-        teams: R.map(addCheckinCallback(action), state.teams),
+        teams: R.map(
+          team =>
+            team.teamID === action.payload.teamID
+              ? { ...team, checkIns: [...team.checkIns, action.payload] }
+              : team,
+          state.teams,
+        ),
       };
     case SELECT_TEAM: {
       return {
@@ -65,9 +77,11 @@ export default function createTeamReducer(state = initialState, action) {
       };
     }
     case ADD_TEAM: {
+      const { name, teamID, checkIns } = action.payload;
       return {
         ...state,
-        teams: R.concat(state.teams, [action.payload]),
+        teams: R.concat(state.teams, [{ name, teamID, checkIns }]),
+        currentTeam: teamID,
       };
     }
     default:
