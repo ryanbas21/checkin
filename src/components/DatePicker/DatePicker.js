@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DatePicker from 'material-ui/DatePicker';
 import CalendarIcon from 'react-icons/lib/go/calendar';
 
@@ -8,7 +9,7 @@ const style = {
   }
 };
 
-export default function (props) {
+export default function DatePickerComponent(props) {
   return (
     <DatePicker
       defaultDate={props.currentDate}
@@ -23,3 +24,9 @@ export default function (props) {
     />
   );
 }
+
+DatePickerComponent.propTypes = {
+  currentDate: PropTypes.number.isRequired,
+  formatDate: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
+};

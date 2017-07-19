@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
@@ -14,34 +15,34 @@ const style = {
   checkIn: {
     position: 'absolute',
     bottom: 30,
-    right: 0
-  }
+    right: 0,
+  },
 };
 
 export default class CheckIn extends Component {
   state = {
     open: false,
     checkIn: {
-      date: moment().format('l')
-    }
+      date: moment().format('l'),
+    },
   };
-  getDate = (e, date) => {
-    const todaysDate = moment(date).format('l');
+  getDate = (e, dateToFormat) => {
+    const date = this.formatDate(dateToFormat);
     this.setState({
       checkIn: {
         ...this.state.checkin,
-        date: todaysDate
-      }
+        date,
+      },
     });
   };
   getToday = e => {
-    const todaysWork = e.target.value;
+    const today = e.target.value;
     this.setState({
       ...this.state,
       checkIn: {
         ...this.state.checkIn,
-        today: todaysWork
-      }
+        today,
+      },
     });
   };
   getRecent = e => {
@@ -50,34 +51,28 @@ export default class CheckIn extends Component {
       ...this.state,
       checkIn: {
         ...this.state.checkIn,
-        recentWork
-      }
+        recentWork,
+      },
     });
   };
   getBlockers = e => {
-    const blockers = e.target.value;
+    const questions = e.target.value;
     this.setState({
       ...this.state,
       checkIn: {
         ...this.state.checkIn,
-        questions: blockers
-      }
+        questions,
+      },
     });
   };
   formatDate = date => moment(date).format('l');
-  submitForm = e => {
-    this.props.actions.addCheckIn(this.state.checkIn);
-  };
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
+  submitForm = e => this.props.actions.addCheckIn(this.state.checkIn);
+  handleClose = () => this.setState({ open: false });
+  handleOpen = () => this.setState({ open: true });
   render() {
     const actions = [
       <FlatButton label="Cancel" primary onTouchTap={this.handleClose} />,
-      <FlatButton label="Submit" primary onTouchTap={this.handleClose} onClick={this.submitForm} />
+      <FlatButton label="Submit" primary onTouchTap={this.handleClose} onClick={this.submitForm} />,
     ];
     return (
       <div style={style.checkIn}>
@@ -113,3 +108,9 @@ export default class CheckIn extends Component {
     );
   }
 }
+
+CheckIn.propTypes = {
+  actions: PropTypes.shape({
+    addCheckIn: PropTypes.func.isRequired,
+  }).isRequired,
+};

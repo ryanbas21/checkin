@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import R from 'ramda';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -17,25 +19,25 @@ const style = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   paper: {
     width: '50%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   list: {
     flexDirection: 'column',
     width: 300,
     margin: 5,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 };
 
 class TeamStatus extends Component {
   state = {
-    open: false
+    open: false,
   };
 
   handleOpen = () => {
@@ -48,7 +50,7 @@ class TeamStatus extends Component {
 
   render() {
     const actions = [
-      <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />
+      <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />,
     ];
     return (
       <div style={style.outer}>
@@ -56,25 +58,28 @@ class TeamStatus extends Component {
           ? <Paper style={style.paper}>
             <List style={style.list}>
               <Subheader>Activity</Subheader>
-              {this.props.status.map(checkin =>
-                <div>
-                  <CheckedInDisplay
+              {R.map(
+                  checkin =>
+                    <div>
+                      {/* <CheckedInDisplay
                     handleOpen={this.handleOpen}
                     key={checkin.id}
                     checkin={checkin}
-                  />
-                  <Dialog
-                    title={checkin.today}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                  >
-                    <p>recent work : {checkin.recentWork}</p>
-                    <p>Todays work : {checkin.today}</p>
-                    <p>blockers : {checkin.questions}</p>
-                  </Dialog>
-                </div>
+                  /> */}
+                      <Dialog
+                        key={`${checkin.id} dialog`}
+                        title={checkin.today}
+                        actions={actions}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleClose}
+                      >
+                        <p>recent work : {checkin.recentWork}</p>
+                        <p>Todays work : {checkin.today}</p>
+                        <p>blockers : {checkin.questions}</p>
+                      </Dialog>
+                    </div>,
+                  this.props.status,
                 )}
             </List>
           </Paper>
@@ -83,4 +88,8 @@ class TeamStatus extends Component {
     );
   }
 }
+
+TeamStatus.propTypes = {
+  status: PropTypes.array.isRequired,
+};
 export default TeamStatus;

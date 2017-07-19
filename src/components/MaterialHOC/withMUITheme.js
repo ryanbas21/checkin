@@ -5,12 +5,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 try {
   injectTapEventPlugin();
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 
-export const userAgent = getMuiTheme({ userAgent: false });
-export const withMuiTheme = userAgent => Component => () =>
+export const createTheme = getMuiTheme({ userAgent: false });
+
+export const withMuiTheme = theme => Component => () =>
   <div>
-    <MuiThemeProvider muiTheme={userAgent}>
+    <MuiThemeProvider muiTheme={theme}>
       <Component />
     </MuiThemeProvider>
   </div>;

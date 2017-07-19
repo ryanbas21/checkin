@@ -2,56 +2,64 @@ import cuid from 'cuid';
 import test from 'tape';
 import reducer, * as actions from './createTeam.reducer.js';
 
+const createCheckinFactory = (
+  {
+    date = Date.now(),
+    today = 'Today',
+    recentWork = 'Recent',
+    questions = 'Questions',
+    id = cuid(),
+    teamID = cuid(),
+    userID = cuid(),
+  } = {},
+) => ({
+  date,
+  today,
+  recentWork,
+  questions,
+  id,
+  teamID,
+  userID,
+});
+const createTeamData = (
+  {
+    teamID = cuid(),
+    id = cuid(),
+    admin = '',
+    teamName = '',
+    checkIns = [createCheckinFactory()],
+  } = {},
+) => ({
+  teamName,
+  teamID,
+  teamAdmin: {
+    admin,
+    id,
+  },
+  checkIns,
+});
+
 test('Should test the selectTeam selector', t => {
   const state = {
-    teams: ['Team cool', 'Team Red', 'Team Blue', 'Team Grey', 'Team Team']
+    teams: ['Team cool', 'Team Red', 'Team Blue', 'Team Grey', 'Team Team'],
+    userInfo: { uid: 1 },
   };
   const actual = actions.createOrJoinSelector(state);
-  const expected = state.teams;
+  const expected = { teams: state.teams, uid: state.userInfo.uid };
   t.same(actual, expected, 'Should slice off the correct piece of state');
   t.end();
 });
-test('Test the getTeamStatus Selector', t => {
-  const checkInID = cuid();
-  const userID = cuid();
-  const state = {
-    [checkInID]: {
-      date: '1/2/2017',
-      recentWork: 'Worked on scrum app',
-      questions: 'When will the backend be ready',
-      today: 'Wrote tests for create team reducer',
-      id: checkInID,
-      userID
-    },
-    [userID]: {
-      date: '1/1/2017',
-      recentWork: 'Worked on scrum app',
-      questions: 'When will the backend be ready',
-      today: 'Wrote tests for create team reducer',
-      id: checkInID,
-      userID
-    }
-  };
-  const expected = [
-    {
-      date: '1/2/2017',
-      recentWork: 'Worked on scrum app',
-      questions: 'When will the backend be ready',
-      today: 'Wrote tests for create team reducer',
-      id: checkInID,
-      userID
-    },
-    {
-      date: '1/1/2017',
-      recentWork: 'Worked on scrum app',
-      questions: 'When will the backend be ready',
-      today: 'Wrote tests for create team reducer',
-      id: checkInID,
-      userID
-    }
-  ];
-  const actual = actions.getTeamStatus(state);
 
+test('Test the getCheckins Selector', t => {
+  const msg = 'Should slice off the checkins from the selected team';
+  const teamID = cuid();
+  const adminID = cuid();
+  const checkin = createTeamData();
+  const state = {
+    teams: [checkin],
+  };
+  const expected = [checkin.checkIns];
+  const actual = actions.getCheckins(state);
   t.same(actual, expected, 'Should create an array of checkins');
   t.end();
 });
@@ -60,27 +68,126 @@ test('Create Team Reducer', nest => {
   nest.test('Add Checkin Case', t => {
     const checkInID = cuid();
     const userID = cuid();
+    const teamID = cuid();
+    const adminID = cuid();
+
     const action = actions.addCheckIn({
       date: '1/1/2017',
       recentWork: 'Worked on scrum app',
       questions: 'When will the backend be ready',
       today: 'Wrote tests for create team reducer',
       id: checkInID,
-      userID
+      userID,
+      teamID,
     });
-    const state = {};
+
+    const state = {
+      teams: [
+        {
+          teamName: 'Blue',
+          teamID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: adminID,
+          },
+          checkIns: [],
+        },
+      ],
+      currentTeam: teamID,
+    };
     const actual = reducer(state, action);
     const expected = {
-      [checkInID]: {
-        date: '1/1/2017',
-        recentWork: 'Worked on scrum app',
-        questions: 'When will the backend be ready',
-        today: 'Wrote tests for create team reducer',
-        id: checkInID,
-        userID
-      }
+      teams: [
+        {
+          teamName: 'Blue',
+          teamID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: adminID,
+          },
+          checkIns: [action.payload],
+        },
+      ],
+      currentTeam: teamID,
     };
+
     t.same(actual, expected, 'Should Add A Checkin to state');
     t.end();
+  });
+
+  nest.test('Add_Team case', t => {
+    const msg = 'Should Test adding a team to state';
+    const state = {
+      teams: [],
+    };
+    const id = cuid();
+    const action = actions.addTeam({ name: 'Red', uid: id });
+    const { name, teamID, checkIns } = action.payload;
+
+    const expected = {
+      teams: [{ teamID: action.payload.teamID, name: 'Red', checkIns: [] }],
+      currentTeam: teamID,
+    };
+    const actual = reducer(state, action);
+
+    t.same(actual, expected, msg);
+    t.end();
+  });
+  nest.test('Select Team Case', assert => {
+    const msg = 'Should test the Select Team Reducer Case';
+    const teamID = cuid();
+    const userID = cuid();
+    const team2ID = cuid();
+    const user2ID = cuid();
+    const state = {
+      teams: [
+        {
+          teamName: 'Blue',
+          teamID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: userID,
+          },
+        },
+        {
+          teamName: 'Red',
+          teamID: team2ID,
+          teamAdmin: {
+            admin: 'Ryan',
+            id: user2ID,
+          },
+        },
+      ],
+      checkIns: [],
+    };
+
+    const action = actions.selectTeam(teamID);
+    const actual = reducer(state, action);
+    const expected = {
+      ...state,
+      currentTeam: {
+        teamName: 'Blue',
+        teamID,
+        teamAdmin: {
+          admin: 'Ryan',
+          id: userID,
+        },
+      },
+    };
+
+    assert.same(actual, expected, msg);
+    assert.end();
+  });
+  nest.test('Get Current Team Selector', assert => {
+    const msg = 'Should return team by ID';
+    const teamID = cuid();
+    const adminID = cuid();
+    const team = createTeamData();
+    const state = { teams: [team] };
+    const actual = actions.getCurrentTeam(state);
+    const expected = team;
+
+    assert.same(actual, expected, msg);
+    assert.end();
   });
 });

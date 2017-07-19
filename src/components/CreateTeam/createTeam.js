@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
 const style = {
-  marginLeft: 20
+  marginLeft: 20,
 };
 
 const CreateTeam = () =>

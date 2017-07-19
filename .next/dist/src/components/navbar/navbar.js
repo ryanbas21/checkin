@@ -8,6 +8,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _materialUi = require('material-ui');
 
 var _AppBar = require('material-ui/AppBar');
@@ -49,6 +53,7 @@ var styles = {
 
 var Navbar = function Navbar(props) {
   return _react2.default.createElement(_AppBar2.default, {
+    isLoggedIn: props.isLoggedIn,
     style: styles.nav,
     showMenuIconButton: false,
     title: _react2.default.createElement('span', { style: styles.title }, props.teamName + ' Scrum Board'),
@@ -59,6 +64,11 @@ var Navbar = function Navbar(props) {
 };
 
 Navbar.defaultProps = {
-  teamName: 'Unnamed Team'
+  teamName: 'Unnamed Team',
+  isLoggedIn: false
+};
+Navbar.propTypes = {
+  teamName: _propTypes2.default.string,
+  isLoggedIn: _propTypes2.default.bool
 };
 exports.default = Navbar;

@@ -4,7 +4,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const style = {
-  marginRight: 20
+  marginRight: 20,
 };
 
 const AddButton = props =>
@@ -15,5 +15,5 @@ const AddButton = props =>
 export default AddButton;
 
 AddButton.propTypes = {
-  action: PropTypes.func.isRequired
+  action: PropTypes.func.isRequired,
 };

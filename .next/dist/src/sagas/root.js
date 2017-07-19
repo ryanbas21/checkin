@@ -16,6 +16,10 @@ var _signin = require('../components/login/signin.saga');
 
 var _signin2 = _interopRequireDefault(_signin);
 
+var _createTeam = require('../components/CreateTeam/createTeam.saga');
+
+var _createTeam2 = _interopRequireDefault(_createTeam);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -28,7 +32,7 @@ function _callee() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return (0, _effects.all)([(0, _effects.fork)(_signin2.default)]);
+          return (0, _effects.all)([(0, _effects.fork)(_signin2.default), (0, _effects.fork)(_createTeam2.default)]);
 
         case 2:
         case 'end':

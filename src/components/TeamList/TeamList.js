@@ -11,18 +11,18 @@ function wrapState(ComposedComponent) {
   return class SelectableList extends Component {
     static propTypes = {
       children: PropTypes.node.isRequired,
-      defaultValue: PropTypes.number.isRequired
+      defaultValue: PropTypes.number.isRequired,
     };
 
     componentWillMount() {
       this.setState({
-        selectedIndex: this.props.defaultValue
+        selectedIndex: this.props.defaultValue,
       });
     }
 
     handleRequestChange = (event, index) => {
       this.setState({
-        selectedIndex: index
+        selectedIndex: index,
       });
     };
 
@@ -45,4 +45,4 @@ const TeamList = () =>
     </SelectableList>
   </MobileTearSheet>;
 
-export default TeamItem;
+export default TeamList;

@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from './signin-reducer';
+import { startLogin, isLoggedIn, fetchLogin, error, getAuthState } from './signin-reducer';
 import Login from './login';
 
 const mapStateToProps = state => ({
-  user: actions.getUserState(state)
+  isLoggedIn: getAuthState(state),
+  fetching: state.fetching === true,
+  error: state.error,
 });
-const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ startLogin, isLoggedIn, fetchLogin, error }, dispatch),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

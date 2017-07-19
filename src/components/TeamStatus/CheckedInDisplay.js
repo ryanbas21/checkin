@@ -4,19 +4,19 @@ import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar/Avatar';
 import UserIcon from 'react-icons/lib/fa/user';
 import { grey400, darkBlack, lightBlack } from 'material-ui/styles/colors';
+import { displayCheckin, displayRecentWork } from './helpers';
 
 const CheckedInDisplay = ({ handleOpen, checkin }) =>
   <ListItem
     onTouchTap={handleOpen}
     key={checkin.id}
     leftAvatar={<Avatar icon={<UserIcon />} />}
-    primaryText={`${checkin.date.toString()} : ${checkin.today.split('').slice(0, 25).join('')}...`}
+    primaryText={`${checkin.date.toString()} : ${displayCheckin(checkin.today)}`}
     secondaryText={
       <p>
-        <span style={{ color: darkBlack }}>{`Recent Work: ${checkin.recentWork
-          .split('')
-          .slice(0, 10)
-          .join('')}...`}</span>
+        <span style={{ color: darkBlack }}>{`Recent Work: ${displayRecentWork(
+          checkin.recentWork,
+        )}...`}</span>
         {' '}--
         {'Click To View More'}
       </p>
@@ -30,7 +30,8 @@ CheckedInDisplay.propTypes = {
     id: PropTypes.string.isRequired,
     today: PropTypes.string.isRequired,
     recentWork: PropTypes.string.isRequired,
-    questions: PropTypes.string.isRequired
-  }).isRequired
+    questions: PropTypes.string.isRequired,
+  }).isRequired,
+  handleOpen: PropTypes.func.isRequired,
 };
 export default CheckedInDisplay;
