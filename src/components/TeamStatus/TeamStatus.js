@@ -62,22 +62,22 @@ class TeamStatus extends Component {
                   checkin =>
                     <div>
                       {/* <CheckedInDisplay
-                    handleOpen={this.handleOpen}
-                    key={checkin.id}
-                    checkin={checkin}
-                  /> */}
-                      <Dialog
+                        handleOpen={this.handleOpen}
+                        key={checkin.id}
+                        checkin={checkin}
+                      /> */}
+                      {/* <Dialog
                         key={`${checkin.id} dialog`}
                         title={checkin.today}
                         actions={actions}
                         modal={false}
                         open={this.state.open}
                         onRequestClose={this.handleClose}
-                      >
-                        <p>recent work : {checkin.recentWork}</p>
-                        <p>Todays work : {checkin.today}</p>
-                        <p>blockers : {checkin.questions}</p>
-                      </Dialog>
+                      > */}
+                      <p>recent work : {checkin.recentWork}</p>
+                      <p>Todays work : {checkin.today}</p>
+                      <p>blockers : {checkin.questions}</p>
+                      {/* </Dialog> */}
                     </div>,
                   this.props.status,
                 )}

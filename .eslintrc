@@ -38,15 +38,16 @@
     "no-underscore-dangle": 0,
     "no-unused-vars": 0,
     "no-var": "error",
+    "jsx-a11y/img-has-alt": 0,
     "quotes": [2, "single", { "avoidEscape": true }],
-    "semi": ["error", "always"],
     "promise/param-names": 2,
     "promise/always-return": 2,
     "promise/catch-or-return": 2,
     "promise/no-native": 0,
     "react/jsx-filename-extension": 0,
     "react/prop-types": 2,
-    "react/forbid-prop-types": 0 
+    "react/forbid-prop-types": 0,
+    "semi": ["error", "always"],
   },
   "plugins": [
     "compat",

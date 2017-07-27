@@ -34,7 +34,7 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-var rootReducer = (0, _redux.combineReducers)({ currentTeam: _createTeam2.default, userInfo: _signinReducer2.default });
+var rootReducer = (0, _redux.combineReducers)({ board: _createTeam2.default, userInfo: _signinReducer2.default });
 
 var sagas = (0, _reduxSaga2.default)();
 

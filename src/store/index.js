@@ -4,10 +4,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import rootSaga from '../sagas/root';
 import configureFirebase from '../lib/firebase';
-import currentTeam from '../components/CreateTeam/createTeam.reducer';
+import board from '../components/CreateTeam/createTeam.reducer';
 import userInfo from '../components/login/signin-reducer';
 
-const rootReducer = combineReducers({ currentTeam, userInfo });
+const rootReducer = combineReducers({ board, userInfo });
 
 const sagas = createSagaMiddleware();
 
@@ -15,7 +15,7 @@ const enhancer = compose(
   applyMiddleware(sagas),
   typeof window !== 'undefined' && process.env.NODE_ENV !== 'production'
     ? window.devToolsExtension && window.devToolsExtension()
-    : f => f
+    : f => f,
 );
 
 export default initialState => {
