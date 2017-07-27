@@ -27,12 +27,12 @@ export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
 export const getCheckins = (state, id) =>
   R.find(team => team.teamID === id, state.data.teams).checkIns;
 export const getTeamStatus = state => R.map(id => R.sort(sortByTime, state[id]), R.keys(state));
+export const currentTeam = (state, id) => R.find(team => team.teamID === id, state.data.teams);
 export const createOrJoinSelector = state => ({
   teams: state.data.teams,
   uid: state.userInfo.userData.uid,
   current: state.data.currentTeam,
 });
-export const getCurrentTeam = (state, id) => R.find(team => team.teamID === id, state.data.teams);
 
 // Reducer
 const initialState = {

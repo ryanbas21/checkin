@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getCurrentTeam = exports.createOrJoinSelector = exports.getTeamStatus = exports.getCheckins = exports.addTeam = exports.selectTeam = undefined;
+exports.createOrJoinSelector = exports.currentTeam = exports.getTeamStatus = exports.getCheckins = exports.addTeam = exports.selectTeam = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -72,17 +72,17 @@ var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
     return _ramda2.default.sort(_reducerHelpers.sortByTime, state[id]);
   }, _ramda2.default.keys(state));
 };
+var currentTeam = exports.currentTeam = function currentTeam(state, id) {
+  return _ramda2.default.find(function (team) {
+    return team.teamID === id;
+  }, state.data.teams);
+};
 var createOrJoinSelector = exports.createOrJoinSelector = function createOrJoinSelector(state) {
   return {
     teams: state.data.teams,
     uid: state.userInfo.userData.uid,
     current: state.data.currentTeam
   };
-};
-var getCurrentTeam = exports.getCurrentTeam = function getCurrentTeam(state, id) {
-  return _ramda2.default.find(function (team) {
-    return team.teamID === id;
-  }, state.data.teams);
 };
 
 // Reducer

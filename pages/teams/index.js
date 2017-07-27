@@ -1,7 +1,4 @@
-import React from 'react';
-import CreateOrJoin from '../../src/components/CreateOrJoin/Container';
 import authedPageWrapper from '../../src/components/MaterialHOC/index';
+import PickTeam from '../../src/features/teams';
 
-const Teams = props => <CreateOrJoin />;
-
-export default authedPageWrapper(Teams);
+export default authedPageWrapper(PickTeam);

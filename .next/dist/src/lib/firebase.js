@@ -22,7 +22,7 @@ exports.default = function () {
   } catch (err) {
     // Skip the "already exists" message which is not an error when hot-reloading
     if (!/already exists/.test(err.message)) {
-      console.log('Firebase initialization error => ' + err);
+      // console.log(`Firebase initialization error => ${err}`);
     }
   }
 };

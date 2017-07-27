@@ -18,15 +18,15 @@ const checkins = autodux({
           questions = '',
           id = cuid(),
           userID = cuid(),
-          teamID = undefined
-        } = {}
+          teamID = undefined,
+        } = {},
       ) => ({ date, today, recentWork, questions, userID, teamID, id }),
-      reducer: (state, payload) => ({ ...state, [payload.id]: payload })
-    }
+      reducer: (state, payload) => ({ ...state, [payload.id]: payload }),
+    },
   },
   selectors: {
-    getCheckins: state => state
-  }
+    getCheckins: state => state,
+  },
 });
 
 const { reducer, actions: { addCheckin }, selectors: { getCheckins } } = checkins;

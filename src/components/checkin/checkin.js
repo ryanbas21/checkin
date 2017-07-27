@@ -117,8 +117,8 @@ export default class CheckIn extends Component {
 
 CheckIn.propTypes = {
   actions: PropTypes.shape({
-    addCheckin: PropTypes.func.isRequired
+    addCheckin: PropTypes.func.isRequired,
   }).isRequired,
   teams: PropTypes.func.isRequired,
-  current: PropTypes.number.isRequired
+  current: PropTypes.number.isRequired,
 };

@@ -52,9 +52,13 @@ class TeamStatus extends Component {
     const actions = [
       <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />,
     ];
+    const listOfCheckins = R.compose(R.map(key => this.props.checkins[key]), R.keys)(
+      this.props.checkins,
+    );
+    console.log(listOfCheckins);
     return (
       <div style={style.outer}>
-        {this.props.status.length
+        {listOfCheckins.length
           ? <Paper style={style.paper}>
             <List style={style.list}>
               <Subheader>Activity</Subheader>
@@ -66,20 +70,21 @@ class TeamStatus extends Component {
                         key={checkin.id}
                         checkin={checkin}
                       /> */}
-                      {/* <Dialog
+                      {console.log(listOfCheckins)}
+                      <Dialog
                         key={`${checkin.id} dialog`}
                         title={checkin.today}
                         actions={actions}
                         modal={false}
                         open={this.state.open}
                         onRequestClose={this.handleClose}
-                      > */}
-                      <p>recent work : {checkin.recentWork}</p>
-                      <p>Todays work : {checkin.today}</p>
-                      <p>blockers : {checkin.questions}</p>
-                      {/* </Dialog> */}
+                      >
+                        <p>recent work : {checkin.recentWork}</p>
+                        <p>Todays work : {checkin.today}</p>
+                        <p>blockers : {checkin.questions}</p>
+                      </Dialog>
                     </div>,
-                  this.props.status,
+                  listOfCheckins,
                 )}
             </List>
           </Paper>
@@ -89,7 +94,16 @@ class TeamStatus extends Component {
   }
 }
 
+const { string } = PropTypes;
 TeamStatus.propTypes = {
-  status: PropTypes.array.isRequired,
+  checkins: PropTypes.shape({
+    date: string,
+    today: string,
+    recentWork: string,
+    questions: string,
+    id: string,
+    userID: string,
+    teamID: string,
+  }).isRequired,
 };
 export default TeamStatus;

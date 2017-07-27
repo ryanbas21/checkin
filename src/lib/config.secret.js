@@ -4,5 +4,5 @@ export default {
   databaseURL: 'https://scrum-board-4d2c5.firebaseio.com',
   projectId: 'scrum-board-4d2c5',
   storageBucket: 'scrum-board-4d2c5.appspot.com',
-  messagingSenderId: '318073583318'
+  messagingSenderId: '318073583318',
 };

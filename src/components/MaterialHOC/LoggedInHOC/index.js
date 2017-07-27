@@ -6,15 +6,11 @@ import { getAuthState, getFetchingState } from '../../login/signin-reducer';
 import Login from '../../login/container';
 import Loading from '../../loading-icon/index';
 
-const AuthComponent = props => (props.auth ? <Component /> : <Login />);
-const withAuth = Component => <AuthComponent />;
+// state is not accessible
+const withAuth = Component => props => (props.auth ? <Component /> : <Login />);
 
 export default Component =>
   connect(state => ({
     auth: getAuthState(state),
     fetching: getFetchingState(state),
   }))(withAuth(Component));
-
-AuthComponent.propTypes = {
-  auth: PropTypes.bool.isRequired,
-};

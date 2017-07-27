@@ -30,11 +30,15 @@ var _signinReducer = require('../components/login/signin-reducer');
 
 var _signinReducer2 = _interopRequireDefault(_signinReducer);
 
+var _checkIns = require('../components/checkin/checkIns.reducer');
+
+var _checkIns2 = _interopRequireDefault(_checkIns);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-var rootReducer = (0, _redux.combineReducers)({ board: _createTeam2.default, userInfo: _signinReducer2.default });
+var rootReducer = (0, _redux.combineReducers)({ board: _createTeam2.default, userInfo: _signinReducer2.default, checkins: _checkIns2.default });
 
 var sagas = (0, _reduxSaga2.default)();
 

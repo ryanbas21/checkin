@@ -6,8 +6,9 @@ import rootSaga from '../sagas/root';
 import configureFirebase from '../lib/firebase';
 import board from '../components/CreateTeam/createTeam.reducer';
 import userInfo from '../components/login/signin-reducer';
+import checkins from '../components/checkin/checkIns.reducer';
 
-const rootReducer = combineReducers({ board, userInfo });
+const rootReducer = combineReducers({ board, userInfo, checkins });
 
 const sagas = createSagaMiddleware();
 
