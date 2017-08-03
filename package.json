@@ -10,7 +10,7 @@
     "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .; echo 'lint finished.'",
     "build": "next build",
     "start": "next start -p 8000",
-    "test": "clear; tape -r babel-register src/**/*.spec.js | tnyan",
+    "test": "clear; tape -r babel-register src/**/*.spec.js",
     "debug-test": "node --inspect --debug-brk ./debug.js",
     "watch": "watch 'clear; npm run -s test; npm run lint' src"
   },
@@ -57,7 +57,7 @@
     "prettier-eslint": "^6.3.0",
     "redux-devtools-extension": "^2.13.0",
     "regenerator-runtime": "^0.10.5",
-    "tap-nyan": "^1.1.0",
+    "tap-dot": "^1.0.5",
     "tape": "^4.6.3",
     "watch": "^1.0.2"
   }

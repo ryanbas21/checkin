@@ -1,7 +1,7 @@
 import R from 'ramda';
 import test from 'tape';
 import cuid from 'cuid';
-import reducer, { addCheckin, getCheckinsSelector as getCheckins } from './checkIns.reducer';
+import reducer, { addCheckin, getCheckins } from './checkIns.reducer';
 
 const getState = (state = {}) => state;
 
@@ -9,7 +9,7 @@ test('Checkin Selector', assert => {
   const msg = 'Should produce an array of checkins';
   const state = getState({ [cuid()]: { today: 'Hello' }, [cuid()]: { today: 'Hey' } });
   const expected = [{ today: 'Hello' }, { today: 'Hey' }];
-  const actual = getCheckins(state);
+  const actual = getCheckins({ checkins: state });
 
   assert.same(actual, expected, msg);
   assert.end();

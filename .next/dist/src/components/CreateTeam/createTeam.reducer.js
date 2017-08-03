@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createOrJoinSelector = exports.currentTeam = exports.getTeamStatus = exports.getCheckins = exports.addTeam = exports.selectTeam = undefined;
+exports.createOrJoinSelector = exports.currentTeam = exports.getTeamStatus = exports.getCheckins = exports.addTeamClick = exports.addTeam = exports.selectTeam = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -41,10 +41,11 @@ var selectTeam = exports.selectTeam = function selectTeam(id) {
     payload: id
   };
 };
+
 var addTeam = exports.addTeam = function addTeam() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ref$name = _ref.name,
-      name = _ref$name === undefined ? '' : _ref$name,
+      name = _ref$name === undefined ? 'Unnamed team' : _ref$name,
       _ref$teamID = _ref.teamID,
       teamID = _ref$teamID === undefined ? (0, _cuid2.default)() : _ref$teamID,
       _ref$uid = _ref.uid,
@@ -61,27 +62,51 @@ var addTeam = exports.addTeam = function addTeam() {
   };
 };
 
+var addTeamClick = exports.addTeamClick = function addTeamClick() {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref2$name = _ref2.name,
+      name = _ref2$name === undefined ? 'unnamed team' : _ref2$name,
+      _ref2$teamID = _ref2.teamID,
+      teamID = _ref2$teamID === undefined ? (0, _cuid2.default)() : _ref2$teamID,
+      _ref2$uid = _ref2.uid,
+      uid = _ref2$uid === undefined ? (0, _cuid2.default)() : _ref2$uid,
+      _ref2$checkins = _ref2.checkins,
+      checkins = _ref2$checkins === undefined ? [] : _ref2$checkins;
+
+  return {
+    type: 'ADD_TEAM_CLICK',
+    payload: {
+      name: name,
+      teamID: teamID,
+      uid: uid,
+      checkins: checkins
+    }
+  };
+};
 // Selectors
+
 var getCheckins = exports.getCheckins = function getCheckins(state, id) {
   return _ramda2.default.find(function (team) {
     return team.teamID === id;
-  }, state.data.teams).checkIns;
+  }, state.board.teams).checkIns;
 };
+
 var getTeamStatus = exports.getTeamStatus = function getTeamStatus(state) {
   return _ramda2.default.map(function (id) {
     return _ramda2.default.sort(_reducerHelpers.sortByTime, state[id]);
   }, _ramda2.default.keys(state));
 };
+
 var currentTeam = exports.currentTeam = function currentTeam(state, id) {
   return _ramda2.default.find(function (team) {
     return team.teamID === id;
-  }, state.data.teams);
+  }, state.board.teams);
 };
 var createOrJoinSelector = exports.createOrJoinSelector = function createOrJoinSelector(state) {
   return {
-    teams: state.data.teams,
+    teams: state.board.teams,
     uid: state.userInfo.userData.uid,
-    current: state.data.currentTeam
+    current: state.board.currentTeam
   };
 };
 

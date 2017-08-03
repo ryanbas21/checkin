@@ -57,7 +57,7 @@ const createUserInfo = (
 
 const getState = (
   { userInfo = createUserInfo(), teams = [createTeamData()], currentTeam = undefined } = {},
-) => ({ userInfo, data: { teams, currentTeam } });
+) => ({ userInfo, board: { teams, currentTeam } });
 
 // Test Suite
 test('Should test the selectTeam selector', t => {
@@ -65,9 +65,9 @@ test('Should test the selectTeam selector', t => {
   const actual = actions.createOrJoinSelector(state);
 
   const expected = {
-    teams: state.data.teams,
+    teams: state.board.teams,
     uid: state.userInfo.userData.uid,
-    current: state.data.current,
+    current: state.board.current,
   };
 
   t.same(actual, expected, 'Should slice off the correct piece of state');
@@ -79,7 +79,7 @@ test('Test the getCheckins Selector', t => {
   const teamID = cuid();
   const teamData = createTeamData({ teamID });
   const state = getState({ currentTeam: teamID, teams: [teamData] });
-  const expected = state.data.teams[0].checkIns;
+  const expected = state.board.teams[0].checkIns;
   const actual = actions.getCheckins(state, teamID);
   t.same(actual, expected, msg);
   t.end();
@@ -89,8 +89,8 @@ test('Get Current Team Selector', assert => {
   const teamID = cuid();
   const teamData = createTeamData({ teamID });
   const state = getState({ currentTeam: teamID, teams: [teamData] });
-  const actual = actions.getCurrentTeam(state, teamID);
-  const expected = state.data.teams[0];
+  const actual = actions.currentTeam(state, teamID);
+  const expected = state.board.teams[0];
 
   assert.same(actual, expected, msg);
   assert.end();

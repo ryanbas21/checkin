@@ -16,7 +16,7 @@ const CheckedInDisplay = ({ handleOpen, checkin }) =>
       <p>
         <span style={{ color: darkBlack }}>{`Recent Work: ${checkin.recentWork}
         ...`}</span>
-        {' '}--
+        {' '}
         {'Click To View More'}
       </p>
     }

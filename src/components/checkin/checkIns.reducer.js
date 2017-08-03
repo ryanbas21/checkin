@@ -2,11 +2,10 @@ import R from 'ramda';
 import cuid from 'cuid';
 import autodux from 'autodux';
 
-// TODO
-const getCheckinsSelector = state => R.compose(R.map(item => state[item]), R.keys)(state);
+const keyedObjToArray = obj => R.compose(R.map(item => obj[item]), R.keys)(obj);
 
 const checkins = autodux({
-  slice: 'Checkins',
+  slice: 'checkins',
   initial: {},
   actions: {
     addCheckin: {
@@ -25,23 +24,11 @@ const checkins = autodux({
     },
   },
   selectors: {
-    getCheckins: state => state,
+    getCheckins: keyedObjToArray,
   },
 });
 
 const { reducer, actions: { addCheckin }, selectors: { getCheckins } } = checkins;
 
 export default reducer;
-export { addCheckin, getCheckinsSelector };
-
-/*
-export const addCheckIn = ({
-  date = Date.now(),
-  today = '',
-  recentWork = '',
-  questions = '',
-  id = cuid(),
-  userID = cuid(),
-  teamID = undefined,
-})
-*/
+export { addCheckin, getCheckins };

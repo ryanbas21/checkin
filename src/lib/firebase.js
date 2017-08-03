@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import config from './config.secret';
+import config from './config';
 
 export default () => {
   try {

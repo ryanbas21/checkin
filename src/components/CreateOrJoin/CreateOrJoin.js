@@ -25,7 +25,7 @@ const dividerStyle = { marginTop: 20, marginBottom: 20 };
 
 const CreateOrJoin = props =>
   <MobileTearSheet>
-    <div className={style.inline}>
+    <div className={style.inline} onClick={() => props.actions.addTeam({ uid: props.teams.uid })}>
       <Link href="/teams/create">
         <a style={style.a}>
           <AddTeamIcon style={style.icon} />Add Team

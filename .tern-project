@@ -1,8 +1,11 @@
 {
     "libs": [
         "browser",
+        "ecma5",
+        "ecma6",
         "jquery"
     ],
+    "ecmaVersion": 6,
     "plugins": {
         "node": true,
         "es_modules": true

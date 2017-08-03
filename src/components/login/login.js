@@ -26,23 +26,20 @@ const card = {
 
 const Login = props =>
   <Paper style={login} zDepth={5}>
-    {props.fetching
-      ? <Loading />
-      : <Card>
-        <CardHeader
-          style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
-          title={'Sign In With Github'}
-          showExpandableButton={false}
-        />
-        <CardText style={card}>
-          {props.actions.error ? <div>{props.actions.error}</div> : <div />}
-          <FlatButton target="_blank" onClick={props.actions.fetchLogin} icon={<LoginButton />} />
-        </CardText>
-      </Card>}
+    <Card>
+      <CardHeader
+        style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}
+        title={'Sign In With Github'}
+        showExpandableButton={false}
+      />
+      <CardText style={card}>
+        {props.actions.error ? <div>{props.actions.error}</div> : <div />}
+        <FlatButton target="_blank" onClick={props.actions.fetchLogin} icon={<LoginButton />} />
+      </CardText>
+    </Card>
   </Paper>;
 
 Login.propTypes = {
-  fetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   actions: PropTypes.shape({
     startLogin: PropTypes.func.isRequired,

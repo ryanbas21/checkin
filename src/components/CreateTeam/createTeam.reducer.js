@@ -13,7 +13,8 @@ export const selectTeam = id => ({
   type: SELECT_TEAM,
   payload: id,
 });
-export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
+
+export const addTeam = ({ name = 'Unnamed team', teamID = cuid(), uid = cuid() } = {}) => ({
   type: ADD_TEAM,
   payload: {
     name,
@@ -23,15 +24,29 @@ export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
   },
 });
 
+export const addTeamClick = (
+  { name = 'unnamed team', teamID = cuid(), uid = cuid(), checkins = [] } = {},
+) => ({
+  type: 'ADD_TEAM_CLICK',
+  payload: {
+    name,
+    teamID,
+    uid,
+    checkins,
+  },
+});
 // Selectors
+
 export const getCheckins = (state, id) =>
-  R.find(team => team.teamID === id, state.data.teams).checkIns;
+  R.find(team => team.teamID === id, state.board.teams).checkIns;
+
 export const getTeamStatus = state => R.map(id => R.sort(sortByTime, state[id]), R.keys(state));
-export const currentTeam = (state, id) => R.find(team => team.teamID === id, state.data.teams);
+
+export const currentTeam = (state, id) => R.find(team => team.teamID === id, state.board.teams);
 export const createOrJoinSelector = state => ({
-  teams: state.data.teams,
+  teams: state.board.teams,
   uid: state.userInfo.userData.uid,
-  current: state.data.currentTeam,
+  current: state.board.currentTeam,
 });
 
 // Reducer

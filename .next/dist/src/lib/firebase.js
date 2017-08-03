@@ -8,7 +8,7 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _config = require('./config.secret');
+var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
 

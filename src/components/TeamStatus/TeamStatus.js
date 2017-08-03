@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import PropTypes from 'prop-types';
-import Avatar from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-import MobileTearSheet from '../MobileTearSheet/MobileTearSheet';
 import CheckedInDisplay from './CheckedInDisplay';
 import NoActivityMessage from './NoActivityMessage';
 
@@ -55,7 +50,6 @@ class TeamStatus extends Component {
     const listOfCheckins = R.compose(R.map(key => this.props.checkins[key]), R.keys)(
       this.props.checkins,
     );
-    console.log(listOfCheckins);
     return (
       <div style={style.outer}>
         {listOfCheckins.length
@@ -65,12 +59,11 @@ class TeamStatus extends Component {
               {R.map(
                   checkin =>
                     <div>
-                      {/* <CheckedInDisplay
+                      <CheckedInDisplay
                         handleOpen={this.handleOpen}
                         key={checkin.id}
                         checkin={checkin}
-                      /> */}
-                      {console.log(listOfCheckins)}
+                      />
                       <Dialog
                         key={`${checkin.id} dialog`}
                         title={checkin.today}
