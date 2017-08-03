@@ -1,6 +1,6 @@
 import { put, all, fork, takeEvery, call } from 'redux-saga/effects';
 import { saveTeam } from './lib';
-import { addTeamClick, addTeam } from './createTeam.reducer';
+import { addTeamClick, addTeam } from './createTeam.reducer.ts';
 
 // workers
 export function* callAddTeamClick(action) {
