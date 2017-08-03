@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
+import Router from 'next/router';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import moment from 'moment';
@@ -23,6 +24,7 @@ export default class CheckIn extends Component {
   state = {
     open: false,
     checkIn: {
+      current: this.props.current,
       date: moment().format('l'),
     },
   };
@@ -66,7 +68,11 @@ export default class CheckIn extends Component {
     });
   };
   formatDate = date => moment(date).format('l');
-  submitForm = e => this.props.actions.addCheckIn(this.state.checkIn);
+  submitForm = e =>
+    this.props.actions.addCheckin({
+      ...this.state.checkIn,
+      teamID: this.props.teams.current,
+    });
   handleClose = () => this.setState({ open: false });
   handleOpen = () => this.setState({ open: true });
   render() {
@@ -111,6 +117,8 @@ export default class CheckIn extends Component {
 
 CheckIn.propTypes = {
   actions: PropTypes.shape({
-    addCheckIn: PropTypes.func.isRequired,
+    addCheckin: PropTypes.func.isRequired,
   }).isRequired,
+  teams: PropTypes.func.isRequired,
+  current: PropTypes.number.isRequired,
 };

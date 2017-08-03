@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 class MobileTearSheet extends Component {
   static propTypes = {
     children: PropTypes.node,
-    height: PropTypes.number.isRequired
+    height: PropTypes.number.isRequired,
   };
 
   static contextTypes = {
-    muiTheme: PropTypes.object.isRequired
+    muiTheme: PropTypes.object.isRequired,
   };
 
   render() {
@@ -19,20 +19,20 @@ class MobileTearSheet extends Component {
         marginBottom: 24,
         marginRight: 24,
         maxWidth: 360,
-        width: '100%'
+        width: '100%',
       },
       container: {
         border: 'solid 1px #d9d9d9',
         borderBottom: 'none',
         height: this.props.height,
-        overflow: 'hidden'
+        overflow: 'hidden',
       },
       bottomTear: {
         display: 'block',
         position: 'relative',
         marginTop: -10,
-        maxWidth: 360
-      }
+        maxWidth: 360,
+      },
     };
 
     return (

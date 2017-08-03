@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import R from 'ramda';
 import PropTypes from 'prop-types';
-import Avatar from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-import MobileTearSheet from '../MobileTearSheet/MobileTearSheet';
 import CheckedInDisplay from './CheckedInDisplay';
 import NoActivityMessage from './NoActivityMessage';
 
@@ -52,20 +47,23 @@ class TeamStatus extends Component {
     const actions = [
       <FlatButton label="Close" primary keyboardFocused onTouchTap={this.handleClose} />,
     ];
+    const listOfCheckins = R.compose(R.map(key => this.props.checkins[key]), R.keys)(
+      this.props.checkins,
+    );
     return (
       <div style={style.outer}>
-        {this.props.status.length
+        {listOfCheckins.length
           ? <Paper style={style.paper}>
             <List style={style.list}>
               <Subheader>Activity</Subheader>
               {R.map(
                   checkin =>
                     <div>
-                      {/* <CheckedInDisplay
-                    handleOpen={this.handleOpen}
-                    key={checkin.id}
-                    checkin={checkin}
-                  /> */}
+                      <CheckedInDisplay
+                        handleOpen={this.handleOpen}
+                        key={checkin.id}
+                        checkin={checkin}
+                      />
                       <Dialog
                         key={`${checkin.id} dialog`}
                         title={checkin.today}
@@ -79,7 +77,7 @@ class TeamStatus extends Component {
                         <p>blockers : {checkin.questions}</p>
                       </Dialog>
                     </div>,
-                  this.props.status,
+                  listOfCheckins,
                 )}
             </List>
           </Paper>
@@ -89,7 +87,16 @@ class TeamStatus extends Component {
   }
 }
 
+const { string } = PropTypes;
 TeamStatus.propTypes = {
-  status: PropTypes.array.isRequired,
+  checkins: PropTypes.shape({
+    date: string,
+    today: string,
+    recentWork: string,
+    questions: string,
+    id: string,
+    userID: string,
+    teamID: string,
+  }).isRequired,
 };
 export default TeamStatus;

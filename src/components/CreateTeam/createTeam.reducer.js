@@ -7,14 +7,14 @@ import { sortByTime, filterTeamsById } from './reducer-helpers';
 const CREATE_TEAM = 'CREATE_TEAM';
 const ADD_TEAM = 'ADD_TEAM';
 const SELECT_TEAM = 'SELECT_TEAM';
-const ADD_CHECKIN = 'ADD_CHECKIN';
 
 // Actions
 export const selectTeam = id => ({
   type: SELECT_TEAM,
   payload: id,
 });
-export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
+
+export const addTeam = ({ name = 'Unnamed team', teamID = cuid(), uid = cuid() } = {}) => ({
   type: ADD_TEAM,
   payload: {
     name,
@@ -23,53 +23,39 @@ export const addTeam = ({ name = '', teamID = cuid(), uid = cuid() } = {}) => ({
     checkIns: [],
   },
 });
-export const addCheckIn = ({
-  date = Date.now(),
-  today = '',
-  recentWork = '',
-  questions = '',
-  id = cuid(),
-  userID = cuid(),
-  teamID = cuid(),
-}) => ({
-  type: ADD_CHECKIN,
+
+export const addTeamClick = (
+  { name = 'unnamed team', teamID = cuid(), uid = cuid(), checkins = [] } = {},
+) => ({
+  type: 'ADD_TEAM_CLICK',
   payload: {
-    date,
-    today,
-    recentWork,
-    questions,
-    id,
-    userID,
+    name,
     teamID,
+    uid,
+    checkins,
   },
 });
-
 // Selectors
-export const getCheckins = state => R.map(team => team.checkIns, state.teams);
+
+export const getCheckins = (state, id) =>
+  R.find(team => team.teamID === id, state.board.teams).checkIns;
+
 export const getTeamStatus = state => R.map(id => R.sort(sortByTime, state[id]), R.keys(state));
+
+export const currentTeam = (state, id) => R.find(team => team.teamID === id, state.board.teams);
 export const createOrJoinSelector = state => ({
-  teams: state.teams || [],
-  uid: state.userInfo.uid,
+  teams: state.board.teams,
+  uid: state.userInfo.userData.uid,
+  current: state.board.currentTeam,
 });
-export const getCurrentTeam = (state, id) => R.find(team => team.id === id, state.teams);
 
 // Reducer
 const initialState = {
   teams: [],
 };
+
 export default function createTeamReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_CHECKIN:
-      return {
-        ...state,
-        teams: R.map(
-          team =>
-            team.teamID === action.payload.teamID
-              ? { ...team, checkIns: [...team.checkIns, action.payload] }
-              : team,
-          state.teams,
-        ),
-      };
     case SELECT_TEAM: {
       return {
         ...state,

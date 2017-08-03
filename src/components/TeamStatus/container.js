@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../CreateTeam/createTeam.reducer';
+import { getCheckinsSelector } from '../checkin/checkIns.reducer';
 import TeamStatus from './TeamStatus';
 
-const mapStateToProps = state => ({ status: actions.getTeamStatus(state) });
-const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
-export default connect(mapStateToProps, mapDispatchToProps)(TeamStatus);
+const mapStateToProps = state => ({ checkins: getCheckinsSelector(state) });
+export default connect(mapStateToProps)(TeamStatus);

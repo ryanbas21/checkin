@@ -1,4 +1,5 @@
 import { all, call, take, takeEvery, fork, put } from 'redux-saga/effects';
+import Router from 'next/router';
 import * as actions from './signin-reducer';
 import { getGithubLogin } from '../../lib/github';
 

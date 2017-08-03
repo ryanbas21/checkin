@@ -8,7 +8,7 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _config = require('./config.secret');
+var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -22,7 +22,7 @@ exports.default = function () {
   } catch (err) {
     // Skip the "already exists" message which is not an error when hot-reloading
     if (!/already exists/.test(err.message)) {
-      console.log('Firebase initialization error => ' + err);
+      // console.log(`Firebase initialization error => ${err}`);
     }
   }
 };
