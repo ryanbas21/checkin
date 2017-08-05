@@ -1,6 +1,5 @@
-import React from 'react';
-import R from 'ramda';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as R from 'ramda';
 import Paper from 'material-ui/Paper';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import Router from 'next/router';
@@ -9,8 +8,9 @@ import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { addTeam, createOrJoinSelector } from '../createTeam.reducer';
+import { bindActionCreators, Dispatch } from 'redux';
+import { addTeam, createOrJoinSelector, CreateTeamActions, TeamData } from '../createTeam.reducer';
+import { GlobalState } from '../../../global-types/index';
 
 const style = {
   height: 1000,
@@ -24,8 +24,29 @@ const style = {
     justifyContent: 'center',
   },
 };
-class CreateTeam extends React.Component {
-  state = {
+interface CreateTeamProps {
+  actions: {
+    addTeam: (data: TeamData) => CreateTeamActions.AddTeam;
+  };
+}
+interface CreateTeamState {
+  finished: boolean;
+  stepIndex: number;
+  team: {
+    name: string;
+    invites: string[];
+  };
+}
+const mapStateToProps = (state: GlobalState) => ({
+  team: createOrJoinSelector(state),
+});
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  actions: bindActionCreators({ addTeam }, dispatch),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);
+
+class CreateTeam extends React.Component<CreateTeamProps, CreateTeamState> {
+  state: CreateTeamState = {
     finished: false,
     stepIndex: 0,
     team: {
@@ -33,7 +54,7 @@ class CreateTeam extends React.Component {
       invites: [],
     },
   };
-  saveTeam = e => {
+  saveTeam = (e: Event) => {
     const { actions } = this.props;
     const teamNameExists = R.reject(
       team => team.name === this.state.team.name,
@@ -45,7 +66,7 @@ class CreateTeam extends React.Component {
     this.state.stepIndex -= 1;
     return this.setState({ ...this.state, error: true });
   };
-  handleTeamName = e => {
+  handleTeamName = (e: Event) => {
     this.setState({
       ...this.state,
       team: {
@@ -127,12 +148,6 @@ class CreateTeam extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  team: createOrJoinSelector(state),
-});
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ addTeam }, dispatch),
-});
 
 CreateTeam.propTypes = {
   team: PropTypes.string.isRequired,
@@ -140,4 +155,3 @@ CreateTeam.propTypes = {
     addTeam: PropTypes.func.isRequired,
   }).isRequired,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);

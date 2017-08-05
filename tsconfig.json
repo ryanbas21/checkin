@@ -1,8 +1,11 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
+        "module": "es2015",
+        "target": "ESNEXT",
         "noImplicitAny": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "jsx": "react",
@@ -10,6 +13,7 @@
         "compilerOptions": {
           "noImplicitAny" : true
         },
+        "experimentalDecorators": true,
         "allowJs": true
     }
 }

@@ -21,7 +21,7 @@ export interface TeamData {
   checkins: Checkins[];
 }
 //CreateTeamActions
-namespace CreateTeamActions {
+export namespace CreateTeamActions {
   export interface SelectTeam {
     type: SELECT_TEAM;
     payload: string;
@@ -41,16 +41,9 @@ export const selectTeam = (id: string): CreateTeamActions.SelectTeam => ({
   payload: id,
 });
 
-export const addTeam = (
-  { name = 'Unnamed team', teamID = cuid(), uid = cuid() } = {},
-): CreateTeamActions.AddTeam => ({
+export const addTeam = (teamData: TeamData): CreateTeamActions.AddTeam => ({
   type: ADD_TEAM,
-  payload: {
-    name,
-    teamID,
-    uid,
-    checkins: [],
-  },
+  payload: teamData,
 });
 
 export const addTeamClick = (teamData: TeamData): CreateTeamActions.AddTeamClick => ({
