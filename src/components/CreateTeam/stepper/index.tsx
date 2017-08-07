@@ -37,13 +37,13 @@ interface CreateTeamState {
     invites: string[];
   };
 }
+
 const mapStateToProps = (state: GlobalState) => ({
   team: createOrJoinSelector(state),
 });
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators({ addTeam }, dispatch),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);
 
 class CreateTeam extends React.Component<CreateTeamProps, CreateTeamState> {
   state: CreateTeamState = {
@@ -55,13 +55,17 @@ class CreateTeam extends React.Component<CreateTeamProps, CreateTeamState> {
     },
   };
   saveTeam = (e: Event) => {
+    e.preventDefault();
     const { actions } = this.props;
     const teamNameExists = R.reject(
       team => team.name === this.state.team.name,
       this.props.team.teams,
     );
     if (teamNameExists) {
-      return actions.addTeam({ name: this.state.team.name, uid: this.props.team.uid });
+      return actions.addTeam({
+        name: this.state.team.name,
+        uid: this.props.team.uid,
+      });
     }
     this.state.stepIndex -= 1;
     return this.setState({ ...this.state, error: true });
@@ -148,10 +152,4 @@ class CreateTeam extends React.Component<CreateTeamProps, CreateTeamState> {
     );
   }
 }
-
-CreateTeam.propTypes = {
-  team: PropTypes.string.isRequired,
-  actions: PropTypes.shape({
-    addTeam: PropTypes.func.isRequired,
-  }).isRequired,
-};
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam);
