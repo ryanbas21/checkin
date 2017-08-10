@@ -8,7 +8,7 @@ const style = {
 };
 export interface CreateTeamProps {}
 
-const CreateTeam = (props: CreateTeamProps): React.ReactElement<CreateTeamProps> =>
+const CreateTeam: React.SFC<CreateTeamProps> = (props) =>
   <Paper zDepth={2}>
     <TextField hintText="Team Name" style={style} underlineShow={false} />
     <Divider />

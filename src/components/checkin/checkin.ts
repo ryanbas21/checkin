@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import Dialog from 'material-ui/Dialog';
 import Divider from 'material-ui/Divider';
-import Router from 'next/router';
+import * as Router from 'next/router';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import moment from 'moment';
@@ -19,7 +18,8 @@ const style = {
     right: 0,
   },
 };
-
+interface CheckinProps {}
+interface CheckinState {}
 export default class CheckIn extends Component {
   state = {
     open: false,

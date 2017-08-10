@@ -7,7 +7,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "next --max_old_space_size=4096",
-    "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js --format=node_modules/eslint-formatter-pretty .; echo 'lint finished.'",
+    "lint": "eslint --cache --ignore-path .gitignore --ext .jsx,.js, .ts, .tsx --format=node_modules/eslint-formatter-pretty .; echo 'lint finished.'",
     "build": "next build",
     "start": "next start -p 8000",
     "test": "clear; tape -r babel-register src/**/*.spec.js",

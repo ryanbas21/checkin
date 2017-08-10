@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Link from 'next/link';
 import AddTeamIcon from 'react-icons/lib/md/group-add';
 import JoinTeamIcon from 'react-icons/lib/ti/group-outline';
@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import { List, ListItem } from 'material-ui/List';
 import MobileTearSheet from '../MobileTearSheet/MobileTearSheet';
-
+import { CombinedTypes } from './Container.js'
 const style = {
   inline: {
     display: 'inline-block',
@@ -23,7 +23,9 @@ const style = {
 };
 const dividerStyle = { marginTop: 20, marginBottom: 20 };
 
-const CreateOrJoin = props =>
+
+
+const CreateOrJoin React.SFC<CreateOrJoinProps> = props =>
   <MobileTearSheet>
     <div className={style.inline} onClick={() => props.actions.addTeam({ uid: props.teams.uid })}>
       <Link href="/teams/create">

@@ -1,4 +1,5 @@
 import * as cuid from 'cuid';
+import Dispatch as ReduxDispatch from 'redux';
 
 export interface GlobalState {
   board: {
@@ -8,6 +9,7 @@ export interface GlobalState {
   checkins: Checkins;
   userInfo: UserInfo;
 }
+export type Dispatch as ReduxDispatch<GlobalState>;
 export interface UserInfo {
   userData: UserData;
 }
